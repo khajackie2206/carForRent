@@ -1,0 +1,15 @@
+{
+    "name": "khanguyennfq/car-for-rent",
+    "autoload": {
+        "psr-4": {
+            "Khanguyennfq\\CarForRent\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "khajackie2206",
+            "email": "khajackie2206@gmail.com"
+        }
+    ],
+    "require": {}
+}
