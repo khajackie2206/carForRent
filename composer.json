@@ -11,5 +11,7 @@
             "email": "khajackie2206@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+      "ext-pdo": "*"
+    }
 }
