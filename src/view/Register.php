@@ -32,12 +32,10 @@
     <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" name="repassword" id="inputPassword" class="form-control" placeholder="Retype assword" required>
-    <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" value="remember-me"> Remember me
-        </label>
+    <div class="checkbox mb-3 home-return">
+        <a href="/" >Return to home page</a>
     </div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
     <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
 </form>
 </body>

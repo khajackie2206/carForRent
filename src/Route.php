@@ -38,7 +38,7 @@ class Route
         if (!$response) {
             return $notFoundController->index();
         }
-        return call_user_func($response, $request);
+        return call_user_func($response);
     }
     public static function redirect(string $path)
     {

@@ -27,14 +27,11 @@
     <input type="email" name="username" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password"  name="password" id="inputPassword" class="form-control" placeholder="Password" required>
-    <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" value="remember-me"> Remember me
-        </label>
+    <div class="checkbox mb-3 home-return">
+       <a href="/" >Return to home page</a>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     <p class="mt-5" style="color: red;"><?php
-
     if (isset($data)) {
         echo $data["error"];
     }
