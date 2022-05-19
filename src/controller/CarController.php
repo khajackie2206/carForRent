@@ -1,14 +1,17 @@
 <?php
+
 namespace Khanguyennfq\CarForRent\controller;
+
 use Khanguyennfq\CarForRent\app\View;
 use Khanguyennfq\CarForRent\database\DatabaseConnect;
+
 class CarController
 {
     /**
      * @return false|string
      */
-    public function index()
+    public function index(): void
     {
-        return View::render('HomePage');
+        View::render('HomePage');
     }
 }

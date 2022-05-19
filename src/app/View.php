@@ -1,13 +1,19 @@
 <?php
+
 namespace Khanguyennfq\CarForRent\app;
+
 class View
 {
     /**
      * @param string $template
-     * @return false|string
+     * @return string|false
      */
-    public static function render(string $template): false|string
+    public static function render(string $template, array $data = null): void
     {
-        return file_get_contents(__DIR__ . "/../view/$template.php");
+        require __DIR__ . "/../view/$template.php";
+    }
+    public static function redirect($url): void
+    {
+        header("location: $url");
     }
 }

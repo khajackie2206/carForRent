@@ -1,5 +1,9 @@
 <?php
+
 namespace Khanguyennfq\CarForRent\controller;
+
+use Khanguyennfq\CarForRent\app\View;
+
 class NotFoundController
 {
     /**
@@ -7,6 +11,6 @@ class NotFoundController
      */
     public function index(): string
     {
-        return "Page not found";
+        return View::render('NotFoundPage');
     }
 }

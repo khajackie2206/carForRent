@@ -1,22 +1,35 @@
 <?php
 
 namespace Khanguyennfq\CarForRent\controller;
+
 use Khanguyennfq\CarForRent\app\View;
 use Khanguyennfq\CarForRent\model\UserModel;
+use Khanguyennfq\CarForRent\repository\UserRepository;
+use Khanguyennfq\CarForRent\database\DatabaseConnect;
+use Khanguyennfq\CarForRent\Route;
+use PDO;
 
 class RegisterController
 {
-    /**
-     * @return false|string
-     */
-    public function index(): false|string
+    private PDO $conn;
+    public function __construct()
     {
-        return view::render('Register');
+        $this->conn = DatabaseConnect::getConnection();
     }
+
+    public function index(): void
+    {
+        view::render('Register');
+    }
+
     public function store()
     {
-        $password = password_hash($_REQUEST['password'], PASSWORD_BCRYPT);
-        $user = new UserModel($_REQUEST['name'], $_REQUEST['email'],$password);
-        $user->addUser();
+        $user = new UserModel();
+        $user->setUsername($_POST['email']);
+        $user->setPassword(password_hash(($_POST['password']), PASSWORD_BCRYPT));
+        $user->setCustomerName($_POST['name']);
+        $userRepository = new UserRepository($this->conn);
+        $result = $userRepository->addUser($user);
+        Route::redirect("/login");
     }
 }

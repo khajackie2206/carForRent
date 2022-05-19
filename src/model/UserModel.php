@@ -1,41 +1,58 @@
 <?php
+
 namespace Khanguyennfq\CarForRent\model;
-use Khanguyennfq\CarForRent\database\DatabaseConnect;
+
 class UserModel
 {
-    private string $customerName;
-    private string $email;
-    private string $password;
+    public string $customerName;
+    public string $username;
+    public string $password;
+
+    /**
+     * @return string
+     */
+    public function getCustomerName(): string
+    {
+        return $this->customerName;
+    }
 
     /**
      * @param string $customerName
-     * @param string $email
-     * @param string $password
      */
-    public function __construct(string $customerName, string $email, string $password)
+    public function setCustomerName(string $customerName): void
     {
         $this->customerName = $customerName;
-        $this->email = $email;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUsername(): string
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param string $username
+     */
+    public function setUsername(string $username): void
+    {
+        $this->username = $username;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword(string $password): void
+    {
         $this->password = $password;
     }
-    public function addUser():void
-    {
-        try {
-            $con = DatabaseConnect::getConnection();
-            echo "Connected successfully";
-        } catch (PDOException $e) {
-            echo "Connection failed: " . $e->getMessage();
-        }
-
-    }
-    public function addCustomer(): void
-    {
-        try {
-            $con = DatabaseConnect::getConnection();
-            $sql = "INSERT INTO user (user_customer_name, user_username, user_password) VALUES ('$this->customerName', '$this->usern', 'Skagen 21', 'Stavanger', '4006', 'Norway');"
-        } catch (PDOException $e) {
-            echo "Connection failed: " . $e->getMessage();
-        }
-    }
-
 }

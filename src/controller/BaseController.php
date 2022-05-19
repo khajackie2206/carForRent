@@ -1,5 +1,7 @@
 <?php
+
 namespace Khanguyennfq\CarForRent\controller;
+
 abstract class BaseController
 {
     /**

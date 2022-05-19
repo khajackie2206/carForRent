@@ -1,8 +1,10 @@
 <?php
 
 namespace Khanguyennfq\CarForRent;
+
 use Khanguyennfq\CarForRent\controller\NotFoundController;
 use Khanguyennfq\CarForRent\Request\Request;
+
 class Route
 {
     /**
@@ -34,8 +36,12 @@ class Route
         $method = $request->getMethod();
         $response = self::$routes[$method][$path] ?? false;
         if (!$response) {
-            echo $notFoundController->index();
+            return $notFoundController->index();
         }
-        return call_user_func($response);
+        return call_user_func($response, $request);
+    }
+    public static function redirect(string $path)
+    {
+        header('Location: ' . $path);
     }
 }
