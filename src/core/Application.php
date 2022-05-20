@@ -1,6 +1,6 @@
 <?php
 
-namespace Khanguyennfq\CarForRent;
+namespace Khanguyennfq\CarForRent\core;
 
 class Application
 {

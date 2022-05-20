@@ -1,6 +1,6 @@
 <?php
 
-namespace Khanguyennfq\CarForRent\Request;
+namespace Khanguyennfq\CarForRent\request;
 
 class LoginRequest
 {

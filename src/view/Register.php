@@ -25,13 +25,11 @@
          height="72">
     <h1 class="h3 mb-3 font-weight-normal">Register an account</h1>
     <label for="inputEmail" class="sr-only">Email address</label>
-    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-    <label for="inputEmail" class="sr-only">Email address</label>
-    <input type="text" name="name" id="inputEmail" class="form-control" placeholder="Your Fullname" required autofocus>
+    <input type="text" name="username" id="inputEmail" class="form-control" placeholder="Username" required autofocus>
+    <label for="inputEmail" class="sr-only">Name</label>
+    <input type="text" name="name" id="inputEmail" class="form-control" placeholder="Full name" required autofocus>
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" name="repassword" id="inputPassword" class="form-control" placeholder="Retype assword" required>
     <div class="checkbox mb-3 home-return">
         <a href="/" >Return to home page</a>
     </div>

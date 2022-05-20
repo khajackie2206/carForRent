@@ -1,9 +1,8 @@
 <?php
 
-namespace Khanguyennfq\CarForRent;
+namespace Khanguyennfq\CarForRent\core;
 
 use Khanguyennfq\CarForRent\controller\NotFoundController;
-use Khanguyennfq\CarForRent\Request\Request;
 
 class Route
 {
@@ -25,6 +24,7 @@ class Route
     {
         self::$routes['POST'][$uri] = $callback;
     }
+
     /**
      * @return mixed
      */

@@ -3,11 +3,12 @@
 namespace Khanguyennfq\CarForRent\controller;
 
 use Khanguyennfq\CarForRent\app\View;
-use Khanguyennfq\CarForRent\Request\LoginRequest;
+use Khanguyennfq\CarForRent\request\LoginRequest;
 use Khanguyennfq\CarForRent\repository\UserRepository;
 use Khanguyennfq\CarForRent\database\DatabaseConnect;
-use Khanguyennfq\CarForRent\Route;
+use Khanguyennfq\CarForRent\core\Route;
 use Khanguyennfq\CarForRent\service\SessionService;
+use Khanguyennfq\CarForRent\service\Validator;
 use PDO;
 
 class LoginController
@@ -44,8 +45,21 @@ class LoginController
     /**
      * @return void
      */
-    public function login(): void
+    public function login()
     {
+        $validation = new Validator(
+            $_POST,
+            [
+                'username' => ['required'],
+                'password' => ['required']
+            ],
+            [
+                'required' => 'Required you type all the blank'
+            ]
+        );
+        if ($validation->validate() !== true) {
+            return json_encode($validation->validate());
+        }
         $loginRequest = new LoginRequest($_POST);
         $user = $this->userRepository->findUserName($loginRequest->username);
         if ($user == null) {

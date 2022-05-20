@@ -6,7 +6,7 @@ use Khanguyennfq\CarForRent\app\View;
 use Khanguyennfq\CarForRent\model\UserModel;
 use Khanguyennfq\CarForRent\repository\UserRepository;
 use Khanguyennfq\CarForRent\database\DatabaseConnect;
-use Khanguyennfq\CarForRent\Route;
+use Khanguyennfq\CarForRent\core\Route;
 use PDO;
 
 class RegisterController
@@ -25,7 +25,7 @@ class RegisterController
     public function store()
     {
         $user = new UserModel();
-        $user->setUsername($_POST['email']);
+        $user->setUsername($_POST['username']);
         $user->setPassword(password_hash(($_POST['password']), PASSWORD_BCRYPT));
         $user->setCustomerName($_POST['name']);
         $userRepository = new UserRepository($this->conn);

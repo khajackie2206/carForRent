@@ -1,6 +1,6 @@
 <?php
 
-namespace Khanguyennfq\carForRent\request;
+namespace Khanguyennfq\carForRent\core;
 
 class Request
 {
