@@ -3,3 +3,6 @@ composer.phar
 /vendor/
 /.idea/
 .env
+.phpunit.cache
+/coverage/
+.phpunit.result.cache

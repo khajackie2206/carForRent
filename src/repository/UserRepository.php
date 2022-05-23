@@ -41,13 +41,13 @@ class UserRepository
         $sql = $this->conn->prepare("SELECT * FROM user WHERE user_username = ? ");
         $sql->execute([$username]);
         $user = new UserModel();
-        if ($row = $sql->fetch()) {
-            $user->username = $row['user_username'];
-            $user->password = $row['user_password'];
-            $user->fullName = $row['user_customer_name'];
-            return $user;
-        } else {
+        $row = $sql->fetch();
+        if (!$row) {
             return null;
         }
+        $user->username = $row['user_username'];
+        $user->password = $row['user_password'];
+        $user->customerName = $row['user_customer_name'];
+        return $user;
     }
 }

@@ -2,13 +2,17 @@
 
 namespace Khanguyennfq\CarForRent\controller;
 
+use Dotenv\Exception\ValidationException;
 use Khanguyennfq\CarForRent\app\View;
+use Khanguyennfq\CarForRent\model\UserModel;
 use Khanguyennfq\CarForRent\request\LoginRequest;
 use Khanguyennfq\CarForRent\repository\UserRepository;
 use Khanguyennfq\CarForRent\database\DatabaseConnect;
 use Khanguyennfq\CarForRent\core\Route;
 use Khanguyennfq\CarForRent\service\SessionService;
+use Khanguyennfq\CarForRent\exception\LoginException;
 use Khanguyennfq\CarForRent\service\Validator;
+use Khanguyennfq\CarForRent\service\LoginService;
 use PDO;
 
 class LoginController
@@ -21,13 +25,12 @@ class LoginController
     /**
      * @var UserRepository
      */
-    private UserRepository $userRepository;
-
+    private $loginService;
 
     public function __construct()
     {
-        $this->conn = DatabaseConnect::getConnection();
-        $this->userRepository = new UserRepository($this->conn);
+        $userRepository  = new UserRepository(DatabaseConnect::getConnection());
+        $this->loginService = new LoginService($userRepository);
     }
 
     /**
@@ -47,41 +50,30 @@ class LoginController
      */
     public function login()
     {
-        $validation = new Validator(
-            $_POST,
-            [
-                'username' => ['required'],
-                'password' => ['required']
-            ],
-            [
-                'required' => 'Required you type all the blank'
-            ]
-        );
-        if ($validation->validate() !== true) {
-            return json_encode($validation->validate());
-        }
+        $user = new UserModel();
         $loginRequest = new LoginRequest($_POST);
-        $user = $this->userRepository->findUserName($loginRequest->username);
-        if ($user == null) {
+        $user->setUsername($loginRequest->username);
+        $user->setPassword($loginRequest->password);
+        if (!$this->loginService->validateLogin($loginRequest)) {
             View::render('Login', [
-                'username' => $loginRequest->username,
-                'password' => '',
-                'error' => 'User is not exist',
+                'username' => $user->getUsername(),
+                'password' => $user->getPassword(),
+                'error' => "You must type all blank"
             ]);
-            return;
+            return ;
         }
-        if (!password_verify($loginRequest->password, $user->password)) {
+        try {
+            $user_get = $this->loginService->login($user);
+            SessionService::setSession("user_username", $user_get->getUsername());
+            View::redirect("/");
+        } catch (ValidationException $e) {
             View::render('Login', [
-                'username' => $loginRequest->username,
-                'password' => '',
-                'error' => 'Wrong password',
+                'username' => $user->getUsername(),
+                'password' => $user->getPassword(),
+                'error' => $e->getMessage(),
             ]);
-            return;
         }
-        SessionService::setSession("user_username", $user->getUsername());
-        Route::redirect('/');
     }
-
     /**
      * @return void
      */
