@@ -4,9 +4,9 @@ namespace Khanguyennfq\CarForRent\model;
 
 class UserModel
 {
-    public string $customerName;
-    public string $username;
-    public string $password;
+    private string $customerName;
+    private string $username;
+    private string $password;
 
     /**
      * @return string

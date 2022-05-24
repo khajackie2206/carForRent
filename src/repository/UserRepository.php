@@ -45,9 +45,9 @@ class UserRepository
         if (!$row) {
             return null;
         }
-        $user->username = $row['user_username'];
-        $user->password = $row['user_password'];
-        $user->customerName = $row['user_customer_name'];
+        $user->setUsername($row['user_username']) ;
+        $user->setPassword($row['user_password']) ;
+        $user->setCustomerName($row['user_customer_name']) ;
         return $user;
     }
 }
