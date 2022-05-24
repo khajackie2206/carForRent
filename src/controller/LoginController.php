@@ -11,7 +11,6 @@ use Khanguyennfq\CarForRent\database\DatabaseConnect;
 use Khanguyennfq\CarForRent\core\Route;
 use Khanguyennfq\CarForRent\service\SessionService;
 use Khanguyennfq\CarForRent\exception\LoginException;
-use Khanguyennfq\CarForRent\service\Validator;
 use Khanguyennfq\CarForRent\service\LoginService;
 use PDO;
 

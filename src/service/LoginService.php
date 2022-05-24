@@ -3,7 +3,6 @@
 namespace Khanguyennfq\CarForRent\service;
 
 use Dotenv\Exception\ValidationException;
-use Khanguyennfq\CarForRent\http\Response;
 use Khanguyennfq\CarForRent\model\UserModel;
 use Khanguyennfq\CarForRent\repository\UserRepository;
 
@@ -20,7 +19,7 @@ class LoginService
         if (empty($existUser)) {
             throw new ValidationException("User is not found");
         }
-        if (!password_verify($user->getPassword(), $existUser->password)) {
+        if (!password_verify($user->getPassword(), $existUser->getPassword())) {
             throw new ValidationException("Password is wrong!!");
         }
         return $existUser;

@@ -13,7 +13,8 @@
     ],
     "require": {
       "ext-pdo": "*",
-        "vlucas/phpdotenv": "^5.4"
+        "vlucas/phpdotenv": "^5.4",
+      "ext-xdebug": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^9"

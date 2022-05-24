@@ -10,8 +10,8 @@ class CarController
     /**
      * @return false|string
      */
-    public function index(): void
+    public function index(): View
     {
-        View::render('HomePage');
+        return View::render('HomePage');
     }
 }

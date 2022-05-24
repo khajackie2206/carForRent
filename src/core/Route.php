@@ -9,18 +9,18 @@ class Route
     /**
      * @var array
      */
-    protected static array $routes = [];
+    public static array $routes = [];
 
     /**
      * @param  $uri
      * @param  $callback
      * @return void
      */
-    public static function get($uri, $callback): void
+    public static function get(string $uri, mixed $callback): void
     {
         self::$routes['GET'][$uri] = $callback;
     }
-    public static function post($uri, $callback): void
+    public static function post(string $uri, mixed $callback): void
     {
         self::$routes['POST'][$uri] = $callback;
     }

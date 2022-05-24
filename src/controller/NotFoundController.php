@@ -9,7 +9,7 @@ class NotFoundController
     /**
      * @return string
      */
-    public function index(): string
+    public function index(): View
     {
         return View::render('NotFoundPage');
     }
