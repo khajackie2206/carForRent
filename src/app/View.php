@@ -8,9 +8,9 @@ class View
      * @param string $template
      * @return string|false
      */
-    public static function render(string $template, array $data = null): void
+    public static function render(string $view, array $data = null): void
     {
-        require __DIR__ . "/../view/$template.php";
+        require __DIR__ . "/../view/$view.php";
     }
     public static function redirect($url): void
     {
