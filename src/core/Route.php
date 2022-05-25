@@ -3,7 +3,6 @@
 namespace Khanguyennfq\CarForRent\core;
 
 use Khanguyennfq\CarForRent\app\View;
-use Khanguyennfq\CarForRent\controller\NotFoundController;
 
 class Route
 {
@@ -38,15 +37,6 @@ class Route
      */
     public static function handle(): mixed
     {
-        /*$request = new Request();
-        $notFoundController = new NotFoundController();
-        $path = $request->getPath();
-        $method = $request->getMethod();
-        $response = self::$routes[$method][$path] ?? false;
-        if (!$response) {
-            return $notFoundController->index();
-        }
-        return call_user_func($response);*/
         $container = new Container();
         $path = self::$request->getPath();
         $method = self::$request->getMethod();

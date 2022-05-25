@@ -60,4 +60,11 @@ class UserModel
         $this->username = $params['username'] ?? null;
         $this->password = $params['password'] ?? null;
     }
+    public function fromArrayAddUser(array $params)
+    {
+        $this->username = $params['username'] ?? null;
+        $this->customerName = $params['name'] ?? null;
+        $this->password = (password_hash(($params['password']), PASSWORD_BCRYPT)) ?? null;
+    }
+
 }

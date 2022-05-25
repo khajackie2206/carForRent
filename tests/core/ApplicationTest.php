@@ -16,7 +16,6 @@ class ApplicationTest extends TestCase
      */
   public function testApplication($params)
   {
-     $requestMock = $this->getMockBuilder(Request::class)->getMock();
      $requestMock->expects(self::once())->method("getMethod")->willReturn($params['method']);
      $requestMock->expects(self::once())->method("getPath")->willReturn($params['uri']);
      $app = new Application($params['uri']);
@@ -27,10 +26,7 @@ class ApplicationTest extends TestCase
     {
         return [
             'case1' => [
-                'params' => [
-                    'method' => 'GET',
-                    'uri' => "/"
-                ]
+                'params' => '/'
             ],
             'case2' => [
                 'params' => [

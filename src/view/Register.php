@@ -34,7 +34,12 @@
         <a href="/" >Return to home page</a>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
-    <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+    <p class="mt-5" style="color: red;"><?php
+
+        if (isset($data)) {
+            echo $data["error"];
+        }
+        ?></p>
 </form>
 </body>
 </html>

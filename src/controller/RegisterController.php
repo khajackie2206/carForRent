@@ -3,18 +3,24 @@
 namespace Khanguyennfq\CarForRent\controller;
 
 use Khanguyennfq\CarForRent\app\View;
+use Khanguyennfq\CarForRent\core\Request;
 use Khanguyennfq\CarForRent\model\UserModel;
 use Khanguyennfq\CarForRent\repository\UserRepository;
-use Khanguyennfq\CarForRent\database\DatabaseConnect;
 use Khanguyennfq\CarForRent\core\Route;
-use PDO;
+use Khanguyennfq\CarForRent\service\LoginService;
+
 
 class RegisterController
 {
-    private PDO $conn;
-    public function __construct()
+
+    private $loginService;
+    private $userModel;
+    private $request;
+    public function __construct(Request $request, UserModel $userModel, LoginService $loginService)
     {
-        $this->conn = DatabaseConnect::getConnection();
+        $this->request = $request;
+        $this->userModel = $userModel;
+        $this->loginService = $loginService;
     }
 
     public function index(): void
@@ -24,12 +30,12 @@ class RegisterController
 
     public function store()
     {
-        $user = new UserModel();
-        $user->setUsername($_POST['username']);
-        $user->setPassword(password_hash(($_POST['password']), PASSWORD_BCRYPT));
-        $user->setCustomerName($_POST['name']);
-        $userRepository = new UserRepository($this->conn);
-        $result = $userRepository->addUser($user);
-        Route::redirect("/login");
+        $err = '';
+        if($this->request->isPost()) {
+            $userParams = $this->request->getBody();
+            $this->userModel->fromArrayAddUser($userParams);
+            $result = $this->userRepository->addUser($this->userModel);
+            Route::redirect("/login");
+        }
     }
 }

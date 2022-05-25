@@ -18,14 +18,7 @@ use PDO;
 
 class LoginController
 {
-    /**
-     * @var PDO
-     */
-    private PDO $conn;
 
-    /**
-     * @var UserRepository
-     */
     private $loginService;
     private $userModel;
     private $request;

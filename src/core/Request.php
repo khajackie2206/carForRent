@@ -17,11 +17,11 @@ class Request
     }
     public function isPost()
     {
-        return $this->getMethod() === 'POST';
+        return $this->getMethod() == 'POST';
     }
     public function isGet()
     {
-        return $this->getMethod() === 'POST';
+        return $this->getMethod() == 'GET';
     }
     public function getBody()
     {
@@ -38,7 +38,6 @@ class Request
         }
         return $body;
     }
-
 
     /**
      * @return string
