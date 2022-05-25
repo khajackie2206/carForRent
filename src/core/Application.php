@@ -36,8 +36,8 @@ class Application
     /**
      * @return void
      */
-    public function run(): void
+    public function run()
     {
-        echo $this->route::handle();
+        return $this->route::handle();
     }
 }
