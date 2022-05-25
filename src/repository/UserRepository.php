@@ -2,19 +2,18 @@
 
 namespace Khanguyennfq\CarForRent\repository;
 
+use Khanguyennfq\CarForRent\database\DatabaseConnect;
 use PDO;
 use Khanguyennfq\CarForRent\model\UserModel;
 
 class UserRepository
 {
-    private PDO $conn;
+    private $conn;
 
-    /**
-     * @param $conn
-     */
-    public function __construct(PDO $conn)
+
+    public function __construct()
     {
-        $this->conn = $conn;
+        $this->conn = DatabaseConnect::getConnection();
     }
 
     /**

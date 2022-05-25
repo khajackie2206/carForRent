@@ -64,6 +64,46 @@ class LoginServiceTest extends TestCase
         ];
     }
 
+    /**
+     * @dataProvider loginFailDataProvider
+     * @param $params
+     * @return void
+     */
+    public function testLoginFail($params)
+    {
+        $userRepositoryMock = $this->getMockBuilder(UserRepository::class)->disableOriginalConstructor()->getMock();
+        $userRepositoryMock->expects($this->once())->method('findUserName')->willReturn($params['user']);
+
+        $loginService = new LoginService($userRepositoryMock);
+
+        $user = new UserModel();
+        $loginRequest = new LoginRequest($params);
+        $user->setUsername($loginRequest->username);
+        $user->setPassword($loginRequest->password);
+
+        $result = $loginService->login($user);
+
+        $this->assertEmpty($result);
+    }
+    public function loginFailDataProvider(): array
+    {
+        return [
+            'happy-case-1' => [
+                'params' => [
+                    'username' => 'kha@123asdas',
+                    'password' => '123asdasd',
+                    'user' => null
+                ]
+            ],
+            'happy-case-2' => [
+                'params' => [
+                    'username' => 'khajackie@gmail.comm',
+                    'password' => '123456aa',
+                    'user' => null
+                ],
+            ]
+        ];
+    }
     private function getUser(string $userName, string $customerName, string $password)
     {
         $user = new UserModel();

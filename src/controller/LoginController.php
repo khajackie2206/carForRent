@@ -4,6 +4,7 @@ namespace Khanguyennfq\CarForRent\controller;
 
 use Dotenv\Exception\ValidationException;
 use Khanguyennfq\CarForRent\app\View;
+use Khanguyennfq\CarForRent\core\Request;
 use Khanguyennfq\CarForRent\model\UserModel;
 use Khanguyennfq\CarForRent\request\LoginRequest;
 use Khanguyennfq\CarForRent\repository\UserRepository;
@@ -12,6 +13,7 @@ use Khanguyennfq\CarForRent\core\Route;
 use Khanguyennfq\CarForRent\service\SessionService;
 use Khanguyennfq\CarForRent\exception\LoginException;
 use Khanguyennfq\CarForRent\service\LoginService;
+use Exception;
 use PDO;
 
 class LoginController
@@ -25,60 +27,59 @@ class LoginController
      * @var UserRepository
      */
     private $loginService;
-
-    public function __construct()
+    private $userModel;
+    private $request;
+    public function __construct(Request $request, UserModel $userModel, LoginService $loginService)
     {
-        $userRepository  = new UserRepository(DatabaseConnect::getConnection());
-        $this->loginService = new LoginService($userRepository);
+        $this->request = $request;
+        $this->userModel = $userModel;
+        $this->loginService = $loginService;
     }
 
     /**
      * @return void
      */
-    public function index(): void
+    public function index(): bool
     {
         if (SessionService::getSession("user_username")) {
-            Route::redirect("/");
-        } else {
-            View::render("Login");
+            View::redirect("/");
         }
+        View::render("Login");
+        return true;
     }
 
     /**
-     * @return void
+     * @return bool|string
      */
     public function login()
     {
-        $user = new UserModel();
-        $loginRequest = new LoginRequest($_POST);
-        $user->setUsername($loginRequest->username);
-        $user->setPassword($loginRequest->password);
-        if (!$this->loginService->validateLogin($loginRequest)) {
-            View::render('Login', [
-                'username' => $user->getUsername(),
-                'password' => $user->getPassword(),
-                'error' => "You must type all blank"
-            ]);
-            return ;
-        }
         try {
-            $user_get = $this->loginService->login($user);
-            SessionService::setSession("user_username", $user_get->getUsername());
-            View::redirect("/");
-        } catch (ValidationException $e) {
-            View::render('Login', [
-                'username' => $user->getUsername(),
-                'password' => $user->getPassword(),
-                'error' => $e->getMessage(),
-            ]);
+            $err = '';
+            if ($this->request->isPost()) {
+                $userparams = $this->request->getBody();
+                $this->userModel->fromArray($userparams);
+                $userLogged = $this->loginService->login($this->userModel);
+                if (!empty($userLogged)) {
+                    return View::redirect("/");
+                }
+                $err = 'The username or password is invalid!';
+            }
+        } catch (Exception $e) {
+            $err = "Something went wrong!!!";
         }
+        return View::render('Login', [
+            'username' => $this->userModel->getUsername(),
+            'password' => $this->userModel->getPassword(),
+            'error' => $err
+        ]);
     }
     /**
      * @return void
      */
-    public function logOut(): void
+    public function logOut(): bool
     {
         SessionService::unsetSession('user_username');
-        Route::redirect('/login');
+        View::redirect('/login');
+        return true;
     }
 }

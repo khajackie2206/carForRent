@@ -7,5 +7,5 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 include '../src/route.php';
-$app = new Application();
+$app = new Application(dirname(__DIR__));
 $app->run();

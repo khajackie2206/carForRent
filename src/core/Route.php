@@ -2,6 +2,7 @@
 
 namespace Khanguyennfq\CarForRent\core;
 
+use Khanguyennfq\CarForRent\app\View;
 use Khanguyennfq\CarForRent\controller\NotFoundController;
 
 class Route
@@ -10,6 +11,13 @@ class Route
      * @var array
      */
     public static array $routes = [];
+    public static Request $request;
+    public static Response $response;
+    public function __construct(Request $request, Response $response)
+    {
+        self::$request = $request;
+        self::$response = $response;
+    }
 
     /**
      * @param  $uri
@@ -30,7 +38,7 @@ class Route
      */
     public static function handle(): mixed
     {
-        $request = new Request();
+        /*$request = new Request();
         $notFoundController = new NotFoundController();
         $path = $request->getPath();
         $method = $request->getMethod();
@@ -38,7 +46,24 @@ class Route
         if (!$response) {
             return $notFoundController->index();
         }
-        return call_user_func($response);
+        return call_user_func($response);*/
+        $container = new Container();
+        $path = self::$request->getPath();
+        $method = self::$request->getMethod();
+        $callback = self::$routes[$method][$path] ?? false;
+        if ($callback === false) {
+            self::$response->setStatusCode(404);
+             View::render('NotFoundPage');
+        }
+        if (is_string($callback)) {
+             View::render($callback);
+        }
+
+        $currentController = $callback[0];
+        $action = $callback[1];
+
+        $controller = $container->make($currentController);
+        return $controller->$action();
     }
     public static function redirect(string $path)
     {

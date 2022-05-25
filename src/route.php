@@ -8,10 +8,10 @@ use Khanguyennfq\CarForRent\controller\RegisterController;
 use Khanguyennfq\CarForRent\controller\UserController;
 use Khanguyennfq\CarForRent\core\Route;
 
-Route::get('/login', [new LoginController(), 'index']);
-Route::get('/logout', [new LoginController(), 'logOut']);
-Route::get('/', [new CarController(), 'index']);
-Route::get('/signup', [new RegisterController(), 'index']);
-Route::post('/signup', [new RegisterController(),'store']);
-Route::post('/login', [new LoginController(),'login']);
-Route::post('/logout', [new LoginController(), 'logOut']);
+Route::get('/login', [LoginController::class, 'index']);
+Route::get('/logout', [LoginController::class, 'logOut']);
+Route::get('/', [CarController::class, 'index']);
+Route::get('/signup', [RegisterController::class, 'index']);
+Route::post('/signup', [RegisterController::class,'store']);
+Route::post('/login', [LoginController::class,'login']);
+Route::post('/logout', [LoginController::class, 'logOut']);

@@ -9,8 +9,9 @@ class UserController
     /**
      * @return false|string
      */
-    public function index(): false | string
+    public function index(): bool
     {
-        return view::render('Login');
+        view::render('Login');
+        return true;
     }
 }

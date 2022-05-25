@@ -13,16 +13,14 @@ class LoginService
     {
         $this->userRepository = $userRepository;
     }
-    public function login(UserModel $user): UserModel
+    public function login(UserModel $user): UserModel | null
     {
         $existUser = $this->userRepository->findUserName($user->getUsername());
-        if (empty($existUser)) {
-            throw new ValidationException("User is not found");
+        if (!empty($existUser) && password_verify($user->getPassword(), $existUser->getPassword())) {
+            SessionService::setSession("user_username", $existUser->getUsername());
+            return $existUser;
         }
-        if (!password_verify($user->getPassword(), $existUser->getPassword())) {
-            throw new ValidationException("Password is wrong!!");
-        }
-        return $existUser;
+        return null;
     }
     public function validateLogin($request): bool
     {
