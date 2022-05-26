@@ -47,9 +47,6 @@
         <?php if (isset($_SESSION['user_username'])) {
             echo "<form method='post' action='/logout'><button type='submit' class='btn btn-danger signout'>Sign out</button></form> ";
         } ?>
-        <?php if (!isset($_SESSION['user_username'])) {
-            echo "<a href='/signup' <button type='button' class='btn btn-warning signup'>Sign up</button></a>";
-        } ?>
     </div>
 </nav>
 <header>

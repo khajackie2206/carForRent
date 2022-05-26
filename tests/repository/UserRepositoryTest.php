@@ -80,54 +80,9 @@ class UserRepositoryTest extends TestCase
      * @param $expected
      * @return void
      */
-    public function testAddUser($params, $expected)
-    {
-        $userRepositoryMock = $this->getMockBuilder(UserRepository::class)->disableOriginalConstructor()->getMock();
-        $userRepositoryMock->expects($this->once())->method('addUser')->willReturn($params['user']);
-
-        $user = new UserModel();
-        $user->setUsername($params['username']);
-        $user->setPassword($params['password']);
-        $user->setCustomerName($params['customer_name']);
-
-        $result=$userRepositoryMock->addUser($user);
-
-        $this->assertEquals($expected['username'], $result->getUsername());
-        $this->assertEquals($expected['customer_name'], $result->getCustomerName());
-    }
-
     /**
      * @return array
      */
-    public function addUserProvider(): array
-    {
-        return [
-            'happy-case-1' => [
-                'params' => [
-                    'username' => 'kha@123',
-                    'password' => '123',
-                    'customer_name' => 'kha',
-                    'user' => $this->getUser('kha@123', 'kha', 123)
-                ],
-                'expected' => [
-                    'username' => 'kha@123',
-                    'customer_name' => 'kha'
-                ]
-            ],
-            'happy-case-2' => [
-                'params' => [
-                    'username' => 'khajackie@gmail.com',
-                    'password' => '123456',
-                    'customer_name' => 'kha minh',
-                    'user' => $this->getUser('khajackie@gmail.com', 'kha minh', 123456)
-                ],
-                'expected' => [
-                    'username' => 'khajackie@gmail.com',
-                    'customer_name' => 'kha minh'
-                ]
-            ]
-        ];
-    }
     private function getUser(string $userName, string $customerName, string $password)
     {
         $user = new UserModel();

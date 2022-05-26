@@ -16,20 +16,6 @@ class UserRepository
         $this->conn = DatabaseConnect::getConnection();
     }
 
-    /**
-     * @param UserModel $user
-     * @return UserModel
-     */
-    public function addUser(UserModel $user): UserModel
-    {
-        $sql = $this->conn->prepare("INSERT INTO user (user_customer_name, user_username, user_password) values (?,?,?) ");
-        $sql->execute([
-            $user->getCustomerName(),
-            $user->getUsername(),
-            $user->getPassword()
-        ]);
-        return $user;
-    }
 
     /**
      * @param $username
