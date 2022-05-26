@@ -1,9 +1,11 @@
 <?php
 
 namespace Khanguyennfq\CarForRent\tests\controller;
+
 use Khanguyennfq\CarForRent\controller\UserController;
 use PHPUnit\Framework\TestCase;
 use Khanguyennfq\CarForRent\app\View;
+
 class UserControllerTest extends TestCase
 {
     public function testIndex()

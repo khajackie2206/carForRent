@@ -6,6 +6,7 @@ use Khanguyennfq\CarForRent\repository\UserRepository;
 use Khanguyennfq\CarForRent\model\UserModel;
 use Khanguyennfq\CarForRent\service\LoginService;
 use Dotenv\Exception\ValidationException;
+
 class LoginServiceTest extends TestCase
 {
     /**
@@ -193,5 +194,4 @@ class LoginServiceTest extends TestCase
             ]
         ];
     }
-
 }

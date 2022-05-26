@@ -1,8 +1,10 @@
 <?php
 
 namespace Khanguyennfq\CarForRent\tests\app;
+
 use Khanguyennfq\CarForRent\app\View;
 use PHPUnit\Framework\TestCase;
+
 class ViewTest extends TestCase
 {
     /**
@@ -10,7 +12,7 @@ class ViewTest extends TestCase
      */
     public function testRedirect()
     {
-       View::redirect('/');
-       $this->assertContains('location: /', xdebug_get_headers());
+        View::redirect('/');
+        $this->assertContains('location: /', xdebug_get_headers());
     }
 }

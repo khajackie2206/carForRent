@@ -14,13 +14,13 @@ class ApplicationTest extends TestCase
      * @param $params
      * @return void
      */
-  public function testApplication($params)
-  {
-     $requestMock->expects(self::once())->method("getMethod")->willReturn($params['method']);
-     $requestMock->expects(self::once())->method("getPath")->willReturn($params['uri']);
-     $app = new Application($params['uri']);
-     self::assertTrue($app->run($params['uri']));
-  }
+    public function testApplication($params)
+    {
+        $requestMock->expects(self::once())->method("getMethod")->willReturn($params['method']);
+        $requestMock->expects(self::once())->method("getPath")->willReturn($params['uri']);
+        $app = new Application($params['uri']);
+        self::assertTrue($app->run($params['uri']));
+    }
 
     public function applicationProvider()
     {

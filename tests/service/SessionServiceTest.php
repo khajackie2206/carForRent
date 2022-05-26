@@ -1,4 +1,5 @@
 <?php
+
 use PHPUnit\Framework\TestCase;
 use Khanguyennfq\CarForRent\service\SessionService;
 
@@ -20,8 +21,8 @@ class SessionServiceTest extends TestCase
     public function setSessionProvider(): array
     {
         return [
-            'happy-case-1' =>[
-                'params'=>[
+            'happy-case-1' => [
+                'params' => [
                     'key' => 'username',
                     'value' => 'kha@123'
                 ]

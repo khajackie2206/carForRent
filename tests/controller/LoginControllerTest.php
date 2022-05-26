@@ -1,5 +1,7 @@
 <?php
+
 namespace Khanguyennfq\CarForRent\tests\controller;
+
 use Khanguyennfq\CarForRent\app\View;
 use PHPUnit\Framework\TestCase;
 use Khanguyennfq\CarForRent\service\LoginService;
@@ -9,14 +11,14 @@ use Khanguyennfq\CarForRent\repository\UserRepository;
 use Khanguyennfq\CarForRent\model\UserModel;
 use Khanguyennfq\CarForRent\database\DatabaseConnect;
 use Khanguyennfq\CarForRent\core\Request;
+
 class LoginControllerTest extends TestCase
 {
 
     protected LoginService $loginService;
     protected UserModel $userModel;
 
-    public function setUp(): void
-
+    public function setUp()
     {
         $this->userModel = new UserModel();
     }
@@ -29,18 +31,18 @@ class LoginControllerTest extends TestCase
      */
     public function testLoginSuccess($param)
     {
-      $requestMock = $this->getMockBuilder(Request::class)->getMock();
-      $requestMock->expects($this->once())->method('getBody')->willReturn($param);
-      $requestMock->expects($this->once())->method('isPost')->willReturn(true);
+        $requestMock = $this->getMockBuilder(Request::class)->getMock();
+        $requestMock->expects($this->once())->method('getBody')->willReturn($param);
+        $requestMock->expects($this->once())->method('isPost')->willReturn(true);
 
-      $loginServiceMock = $this->getMockBuilder(LoginService::class)->disableOriginalConstructor()->getMock();
-      $loginServiceMock->expects($this->once())->method('login')->willReturn($param['user']);
+        $loginServiceMock = $this->getMockBuilder(LoginService::class)->disableOriginalConstructor()->getMock();
+        $loginServiceMock->expects($this->once())->method('login')->willReturn($param['user']);
 
-      $loginController = new LoginController($requestMock, $this->userModel, $loginServiceMock);
-      $result = $loginController->login();
-      $view = new View();
-      $expected = $view::redirect('/');
-      $this->assertEquals($expected, $result);
+        $loginController = new LoginController($requestMock, $this->userModel, $loginServiceMock);
+        $result = $loginController->login();
+        $view = new View();
+        $expected = $view::redirect('/');
+        $this->assertEquals($expected, $result);
     }
     public function loginSuccessProvider(): array
     {
@@ -126,5 +128,4 @@ class LoginControllerTest extends TestCase
         $expected = $view::render("Login");
         $this->assertEquals($expected, $result);
     }
-
 }

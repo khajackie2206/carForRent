@@ -1,9 +1,12 @@
 <?php
+
 namespace Khanguyennfq\CarForRent\tests\repository;
+
 use PHPUnit\Framework\TestCase;
 use Khanguyennfq\CarForRent\repository\UserRepository;
 use Khanguyennfq\CarForRent\database\DatabaseConnect;
 use Khanguyennfq\CarForRent\model\UserModel;
+
 class UserRepositoryTest extends TestCase
 {
 
@@ -21,7 +24,7 @@ class UserRepositoryTest extends TestCase
      */
     public function testFindUserName($params, $expected)
     {
-        $result=$this->userRepository->findUserName($params);
+        $result = $this->userRepository->findUserName($params);
         $this->assertEquals($expected['user_customer_name'], $result->getCustomerName());
         $this->assertEquals($expected['user_username'], $result->getUsername());
     }
@@ -34,14 +37,14 @@ class UserRepositoryTest extends TestCase
         return [
             'happy-case-1' => [
                 'params' => 'kha@123',
-                'expected' =>[
+                'expected' => [
                     'user_customer_name' => 'kha',
                     'user_username' => 'kha@123',
                 ]
             ],
             'happy-case-2' => [
                 'params' => 'khajackie2206@gmail.com',
-                'expected' =>[
+                'expected' => [
                     'user_customer_name' => 'Kha Minh',
                     'user_username' => 'khajackie2206@gmail.com',
                 ]
