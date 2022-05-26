@@ -7,9 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Khanguyennfq\CarForRent\service\LoginService;
 use Khanguyennfq\CarForRent\controller\LoginController;
 use Khanguyennfq\CarForRent\service\SessionService;
-use Khanguyennfq\CarForRent\repository\UserRepository;
 use Khanguyennfq\CarForRent\model\UserModel;
-use Khanguyennfq\CarForRent\database\DatabaseConnect;
 use Khanguyennfq\CarForRent\core\Request;
 
 class LoginControllerTest extends TestCase
@@ -18,7 +16,7 @@ class LoginControllerTest extends TestCase
     protected LoginService $loginService;
     protected UserModel $userModel;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->userModel = new UserModel();
     }
@@ -44,17 +42,21 @@ class LoginControllerTest extends TestCase
         $expected = $view::redirect('/');
         $this->assertEquals($expected, $result);
     }
+
+    /**
+     * @return \array[][]
+     */
     public function loginSuccessProvider(): array
     {
         return [
             'login-1' => [
                 'param' => [
                     'username' => 'kha@123',
-                    'password' => '123',
+                    'password' => '1234',
                     'user' => $this->getUser(
                         'kha@123',
                         'kha',
-                        '123',
+                        '1234',
                     )
                 ],
             ],
@@ -118,7 +120,7 @@ class LoginControllerTest extends TestCase
         $expected = $view::redirect("/login");
         $this->assertEquals($expected, $result);
     }
-    public function testIndex()
+    public function testIndexFail()
     {
         $requestMock = $this->getMockBuilder(Request::class)->getMock();
         $loginServiceMock = $this->getMockBuilder(LoginService::class)->disableOriginalConstructor()->getMock();
@@ -127,5 +129,22 @@ class LoginControllerTest extends TestCase
         $result = $loginController->index();
         $expected = $view::render("Login");
         $this->assertEquals($expected, $result);
+    }
+
+    /**
+     * @runInSeparateProcess
+     * @return void
+     */
+    public function testIndexSuccess()
+    {
+        $sessionService = new SessionService();
+        $sessionService::setSession('user_username', 'kha@123');
+        $requestMock = $this->getMockBuilder(Request::class)->getMock();
+        $loginServiceMock = $this->getMockBuilder(LoginService::class)->disableOriginalConstructor()->getMock();
+        $loginController = new LoginController($requestMock, $this->userModel, $loginServiceMock);
+        $result = $loginController->index();
+        $expected = false;
+        $this->assertEquals($expected, $result);
+        $sessionService::unsetSession('user_username');
     }
 }

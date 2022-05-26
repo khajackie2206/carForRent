@@ -55,7 +55,7 @@ class UserModel
     {
         $this->password = $password;
     }
-    public function fromArray(array $params)
+    public function fromArray(array $params): void
     {
         $this->username = $params['username'] ?? null;
         $this->password = $params['password'] ?? null;

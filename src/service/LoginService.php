@@ -9,10 +9,16 @@ use Khanguyennfq\CarForRent\repository\UserRepository;
 class LoginService
 {
     private $userRepository;
+
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
     }
+
+    /**
+     * @param UserModel $user
+     * @return UserModel|null
+     */
     public function login(UserModel $user): UserModel | null
     {
         $existUser = $this->userRepository->findUserName($user->getUsername());
@@ -22,6 +28,11 @@ class LoginService
         }
         return null;
     }
+
+    /**
+     * @param $request
+     * @return bool
+     */
     public function validateLogin($request): bool
     {
         if (empty($request->username) || empty($request->password)) {

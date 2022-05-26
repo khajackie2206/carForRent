@@ -6,6 +6,7 @@ use Khanguyennfq\CarForRent\app\View;
 
 class NotFoundController
 {
+
     /**
      * @return string
      */

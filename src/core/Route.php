@@ -12,21 +12,19 @@ class Route
     public static array $routes = [];
     public static Request $request;
     public static Response $response;
+
     public function __construct(Request $request, Response $response)
     {
         self::$request = $request;
         self::$response = $response;
     }
 
-    /**
-     * @param  $uri
-     * @param  $callback
-     * @return void
-     */
+
     public static function get(string $uri, mixed $callback): void
     {
         self::$routes['GET'][$uri] = $callback;
     }
+
     public static function post(string $uri, mixed $callback): void
     {
         self::$routes['POST'][$uri] = $callback;
@@ -43,7 +41,7 @@ class Route
         $callback = self::$routes[$method][$path] ?? false;
         if ($callback === false) {
             self::$response->setStatusCode(404);
-             View::render('NotFoundPage');
+            View::render('NotFoundPage');
         }
         if (is_string($callback)) {
              View::render($callback);
@@ -55,6 +53,7 @@ class Route
         $controller = $container->make($currentController);
         return $controller->$action();
     }
+
     public static function redirect(string $path)
     {
         header('Location: ' . $path);

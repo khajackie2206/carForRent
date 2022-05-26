@@ -16,4 +16,12 @@ class CarControllerTest extends TestCase
         $expected = $view::render('HomePage');
         $this->assertEquals($expected, $carController);
     }
+    public function testIndexFail()
+    {
+        $carController = new CarController();
+        $carController = $carController->index();
+        $view = new View();
+        $expected = $view::render('HomePage');
+        $this->assertEquals($expected, $carController);
+    }
 }

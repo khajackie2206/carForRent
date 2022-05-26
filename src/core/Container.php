@@ -18,7 +18,7 @@ class Container
      * @param $abstract
      * @param $concrete
      */
-    public function bind($abstract, $concrete = null)
+    public function bind($abstract, $concrete = null): void
     {
         if (is_null($concrete)) {
             $concrete = $abstract;
@@ -34,7 +34,7 @@ class Container
      * @return mixed|object
      * @throws ReflectionException
      */
-    public function make($abstract, array $parameters = [])
+    public function make(string $abstract, array $parameters = [])
     {
         if (!isset($this->instances[$abstract])) {
             $this->bind($abstract);
