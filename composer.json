@@ -11,13 +11,19 @@
             "email": "khajackie2206@gmail.com"
         }
     ],
-    "require": {
-      "ext-pdo": "*",
-        "vlucas/phpdotenv": "^5.4",
-      "ext-xdebug": "*"
-    },
     "require-dev": {
         "phpunit/phpunit": "^9",
         "vimeo/psalm": "^4.23"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true
+        }
+    },
+    "require": {
+        "firebase/php-jwt": "^6.2",
+        "paragonie/sodium_compat": "^1.17",
+        "ext-pdo": "*",
+        "vlucas/phpdotenv": "^5.4"
     }
 }

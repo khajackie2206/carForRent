@@ -17,7 +17,7 @@ class DatabaseConnect
     public static function getConnection(): PDO
     {
         if (!self::$conn) {
-            self::$loadEnv = Dotenv::createImmutable(__DIR__ . '/../');
+            self::$loadEnv = Dotenv::createImmutable(__DIR__ . '/../../');
             self::$loadEnv->load();
             $host = $_ENV['DATABASE_HOST'];
             $username = $_ENV['DATABASE_USER'];

@@ -2,27 +2,26 @@
 
 namespace Khanguyennfq\CarForRent\tests\core;
 
-use Khanguyennfq\CarForRent\app\View;
+use Khanguyennfq\CarForRent\controller\API\LoginControllerAPI;
 use Khanguyennfq\CarForRent\core\Route;
-use Khanguyennfq\CarForRent\controller\LoginController;
 use PHPUnit\Framework\TestCase;
 
 class RouteTest extends TestCase
 {
     public function testGetRoute()
     {
-        Route::get('/login', [LoginController::class,'index']);
+        Route::get('/login', [LoginControllerAPI::class,'index']);
         $route = Route::$routes;
         $result = $route['GET']['/login'];
-        $expected = [LoginController::class,'index'];
+        $expected = [LoginControllerAPI::class,'index'];
         $this->assertEquals($expected, $result);
     }
     public function testPostRoute()
     {
-        Route::post('/login', [LoginController::class,'login']);
+        Route::post('/login', [LoginControllerAPI::class,'login']);
         $route = Route::$routes;
         $result = $route['POST']['/login'];
-        $expected = [LoginController::class,'login'];
+        $expected = [LoginControllerAPI::class,'login'];
         $this->assertEquals($expected, $result);
     }
 

@@ -4,6 +4,11 @@ namespace Khanguyennfq\CarForRent\core;
 
 class Request
 {
+    const methodGet = "GET";
+    const methodPost = "POST";
+    const methodPut = "PUT";
+    const methodDelete = "DELETE";
+
     /**
      * @return string
      */
@@ -15,7 +20,21 @@ class Request
         }
         return substr($path, 0, strpos($path, '?'));
     }
-
+    public function getHost(): string
+    {
+        return $_SERVER['HTTP_HOST'];
+    }
+    /**
+     * @return string
+     */
+    public function getMethod(): string
+    {
+        return $_SERVER['REQUEST_METHOD'];
+    }
+    public function getFormParams()
+    {
+        return $_REQUEST;
+    }
     public function isPost(): bool
     {
         return $this->getMethod() == 'POST';
@@ -35,11 +54,12 @@ class Request
         return $body;
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod(): string
+
+
+    public function getRequestJsonBody()
     {
-        return $_SERVER['REQUEST_METHOD'];
+        $data = file_get_contents('php://input');
+
+        return json_decode($data, true);
     }
 }

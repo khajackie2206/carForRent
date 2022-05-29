@@ -2,17 +2,22 @@
 
 namespace Khanguyennfq\CarForRent\controller;
 
-use Khanguyennfq\CarForRent\app\View;
-use Khanguyennfq\CarForRent\database\DatabaseConnect;
-
+use Khanguyennfq\CarForRent\repository\CarRepository;
+use Khanguyennfq\CarForRent\core\Response;
+use Khanguyennfq\CarForRent\model\CarModel;
 class CarController
 {
-    /**
-     * @return false|string
-     */
-    public function index(): bool
+    private $carRepository;
+    private $response;
+
+    public function __construct(CarRepository $carRepository, Response $response)
     {
-        View::render('HomePage');
-        return true;
+        $this->carRepository = $carRepository;
+        $this->response = $response;
+    }
+
+    public function index(): Response
+    {
+           return $this->response->view('HomePage');
     }
 }

@@ -34,7 +34,7 @@
     <p class="mt-5" style="color: red;"><?php
 
     if (isset($data)) {
-        echo $data["error"];
+        echo $data[0]['error'];
     }
     ?></p>
     <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>

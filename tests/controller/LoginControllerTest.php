@@ -3,12 +3,12 @@
 namespace Khanguyennfq\CarForRent\tests\controller;
 
 use Khanguyennfq\CarForRent\app\View;
-use PHPUnit\Framework\TestCase;
-use Khanguyennfq\CarForRent\service\LoginService;
-use Khanguyennfq\CarForRent\controller\LoginController;
-use Khanguyennfq\CarForRent\service\SessionService;
-use Khanguyennfq\CarForRent\model\UserModel;
+use Khanguyennfq\CarForRent\controller\API\LoginControllerAPI;
 use Khanguyennfq\CarForRent\core\Request;
+use Khanguyennfq\CarForRent\model\UserModel;
+use Khanguyennfq\CarForRent\service\LoginService;
+use Khanguyennfq\CarForRent\service\SessionService;
+use PHPUnit\Framework\TestCase;
 
 class LoginControllerTest extends TestCase
 {
@@ -36,7 +36,7 @@ class LoginControllerTest extends TestCase
         $loginServiceMock = $this->getMockBuilder(LoginService::class)->disableOriginalConstructor()->getMock();
         $loginServiceMock->expects($this->once())->method('login')->willReturn($param['user']);
 
-        $loginController = new LoginController($requestMock, $this->userModel, $loginServiceMock);
+        $loginController = new LoginControllerAPI($requestMock, $this->userModel, $loginServiceMock);
         $result = $loginController->login();
         $view = new View();
         $expected = $view::redirect('/');
@@ -77,7 +77,7 @@ class LoginControllerTest extends TestCase
         $loginServiceMock = $this->getMockBuilder(LoginService::class)->disableOriginalConstructor()->getMock();
         $loginServiceMock->expects($this->once())->method('login')->willReturn(null);
 
-        $loginController = new LoginController($requestMock, $this->userModel, $loginServiceMock);
+        $loginController = new LoginControllerAPI($requestMock, $this->userModel, $loginServiceMock);
         $result = $loginController->login();
         $view = new View();
         $expected = $view::render('Login');
@@ -114,7 +114,7 @@ class LoginControllerTest extends TestCase
     {
         $requestMock = $this->getMockBuilder(Request::class)->getMock();
         $loginServiceMock = $this->getMockBuilder(LoginService::class)->disableOriginalConstructor()->getMock();
-        $loginController = new LoginController($requestMock, $this->userModel, $loginServiceMock);
+        $loginController = new LoginControllerAPI($requestMock, $this->userModel, $loginServiceMock);
         $view = new View();
         $result = $loginController->logOut();
         $expected = $view::redirect("/login");
@@ -124,7 +124,7 @@ class LoginControllerTest extends TestCase
     {
         $requestMock = $this->getMockBuilder(Request::class)->getMock();
         $loginServiceMock = $this->getMockBuilder(LoginService::class)->disableOriginalConstructor()->getMock();
-        $loginController = new LoginController($requestMock, $this->userModel, $loginServiceMock);
+        $loginController = new LoginControllerAPI($requestMock, $this->userModel, $loginServiceMock);
         $view = new View();
         $result = $loginController->index();
         $expected = $view::render("Login");
@@ -141,7 +141,7 @@ class LoginControllerTest extends TestCase
         $sessionService::setSession('user_username', 'kha@123');
         $requestMock = $this->getMockBuilder(Request::class)->getMock();
         $loginServiceMock = $this->getMockBuilder(LoginService::class)->disableOriginalConstructor()->getMock();
-        $loginController = new LoginController($requestMock, $this->userModel, $loginServiceMock);
+        $loginController = new LoginControllerAPI($requestMock, $this->userModel, $loginServiceMock);
         $result = $loginController->index();
         $expected = false;
         $this->assertEquals($expected, $result);

@@ -1,18 +1,15 @@
 <?php
 
 namespace Khanguyennfq\CarForRent\controller;
-
-use Khanguyennfq\CarForRent\app\View;
-
-class NotFoundController
+use Khanguyennfq\CarForRent\core\Response;
+class NotFoundController extends BaseController
 {
+    public const INDEX_ACTION = 'index';
 
-    /**
-     * @return string
-     */
-    public function index(): bool
+
+    public function index(): Response
     {
-        View::render('NotFoundPage');
-        return true;
+        $template = "NotFoundPage.php";
+        return $this->response->view($template, [], Response::HTTP_NOT_FOUND );
     }
 }

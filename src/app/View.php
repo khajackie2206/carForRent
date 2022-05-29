@@ -2,22 +2,51 @@
 
 namespace Khanguyennfq\CarForRent\app;
 
+use Khanguyennfq\CarForRent\core\Response;
+
 class View
 {
-    /**
-     * @param string $view
-     * @param array|null $data
-     * @return bool
-     */
-    public static function render(string $view, array $data = null): bool
+    public static function handle($response): void
     {
-        require __DIR__ . "/../view/$view.php";
-        return true;
+        if ($response->getRedirectUrl() !== null) {
+            static::handleRedirect($response);
+            return;
+        }
+        if ($response->getTemplate() !== null) {
+            static::handleViewTemplate($response);
+            return;
+        }
+        static::ViewJson($response);
+        exit();
     }
 
-    public static function redirect(string $url): bool
+    public static function viewJson(Response $response)
+    {
+        $data = $response->getData();
+        $statusCode = $response->getStatusCode();
+        $dataResponse = json_encode($data);
+        header('Content-Type: application/json; charset=utf-8');
+        http_response_code($statusCode);
+        foreach ($response->getHeaders() as $key => $value) {
+            header("$key:$value;");
+        }
+        print_r($dataResponse);
+    }
+
+    public static function handleViewTemplate(Response $response): void
+    {
+        $template = $response->getTemplate();
+        $data = $response->getData();
+        http_response_code($response->getStatusCode());
+        require __DIR__ . "/../view/$template.php";
+    }
+
+    public static function handleRedirect(Response $response): void
+    {
+        static::redirect($response->getRedirectUrl());
+    }
+    public static function redirect($url): void
     {
         header("location: $url");
-        return true;
     }
 }

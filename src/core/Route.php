@@ -1,61 +1,76 @@
 <?php
 
 namespace Khanguyennfq\CarForRent\core;
-
+use Khanguyennfq\CarForRent\core\Request;
 use Khanguyennfq\CarForRent\app\View;
 
 class Route
 {
-    /**
-     * @var array
-     */
-    public static array $routes = [];
-    public static Request $request;
-    public static Response $response;
 
-    public function __construct(Request $request, Response $response)
+    protected string $method;
+    protected string $uri;
+    protected string $controllerClassName;
+    protected string $actionName;
+
+    public function __construct(string $method, string $uri, string $controllerClassName, string $actionName)
     {
-        self::$request = $request;
-        self::$response = $response;
+       $this->setMethod($method);
+       $this->setUri($uri);
+       $this->setControllerClassName($controllerClassName);
+       $this->setActionName($actionName);
+    }
+    public static function post(string $uri, string $controllerClassName, string $actionName): Route
+    {
+        return new static(Request::methodPost, $uri, $controllerClassName, $actionName);
     }
 
-
-    public static function get(string $uri, mixed $callback): void
+    public static function get(string $uri, string $controllerClassName, string $actionName): Route
     {
-        self::$routes['GET'][$uri] = $callback;
+        return new static(Request::methodGet, $uri, $controllerClassName, $actionName);
     }
 
-    public static function post(string $uri, mixed $callback): void
+    public function match(string $method, string $uri): bool
     {
-        self::$routes['POST'][$uri] = $callback;
+        return $this->getMethod() === $method && $this->getUri() === $uri;
     }
 
-    /**
-     * @return mixed
-     */
-    public static function handle(): mixed
+    public function getMethod(): string
     {
-        $container = new Container();
-        $path = self::$request->getPath();
-        $method = self::$request->getMethod();
-        $callback = self::$routes[$method][$path] ?? false;
-        if ($callback === false) {
-            self::$response->setStatusCode(404);
-            View::render('NotFoundPage');
-        }
-        if (is_string($callback)) {
-             View::render($callback);
-        }
-
-        $currentController = $callback[0];
-        $action = $callback[1];
-
-        $controller = $container->make($currentController);
-        return $controller->$action();
+        return $this->method;
     }
 
-    public static function redirect(string $path)
+    public function setMethod(string $method): void
     {
-        header('Location: ' . $path);
+        $this->method = $method;
+    }
+
+    public function getUri(): string
+    {
+        return $this->uri;
+    }
+
+    public function setUri(string $uri): void
+    {
+        $this->uri = $uri;
+    }
+
+    public function getControllerClassName(): string
+    {
+        return $this->controllerClassName;
+    }
+
+    public function setControllerClassName(string $controllerClassName): void
+    {
+        $this->controllerClassName = $controllerClassName;
+    }
+
+    public function getActionName(): string
+    {
+        return $this->actionName;
+    }
+
+    public function setActionName(string $actionName): void
+    {
+        $this->actionName = $actionName;
     }
 }

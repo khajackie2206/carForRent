@@ -3,7 +3,6 @@
 namespace Khanguyennfq\CarForRent\repository;
 
 use Khanguyennfq\CarForRent\database\DatabaseConnect;
-use PDO;
 use Khanguyennfq\CarForRent\model\UserModel;
 
 class UserRepository
@@ -29,6 +28,7 @@ class UserRepository
         if (!$row) {
             return null;
         }
+        $user->setID($row['ID']) ;
         $user->setUsername($row['username']) ;
         $user->setPassword($row['password']) ;
         $user->setCustomerName($row['name']) ;

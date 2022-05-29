@@ -7,10 +7,24 @@ class UserModel
     private string $customerName;
     private string $username;
     private string $password;
+    private int $ID;
 
     /**
      * @return string
      */
+    public function getID(): int
+    {
+        return $this->ID;
+    }
+
+    /**
+     * @param string $customerName
+     */
+    public function setID(int $ID): void
+    {
+        $this->ID = $ID;
+    }
+
     public function getCustomerName(): string
     {
         return $this->customerName;

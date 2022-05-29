@@ -1,6 +1,6 @@
 <?php
 
-namespace Khanguyennfq\CarForRent\controller;
+namespace Khanguyennfq\CarForRent\controller\API;
 use Khanguyennfq\CarForRent\app\View;
 use Khanguyennfq\CarForRent\core\Request;
 use Khanguyennfq\CarForRent\core\Response;
@@ -9,16 +9,16 @@ use Khanguyennfq\CarForRent\service\LoginService;
 use Khanguyennfq\CarForRent\service\SessionService;
 use Khanguyennfq\CarForRent\service\TokenService;
 use Khanguyennfq\CarForRent\transformer\UserTransformer;
-use Exception;
-class LoginController
-{
 
+class LoginControllerAPI
+{
     private $loginService;
     private $userModel;
     private $request;
     private $response;
     private $tokenService;
     private $userTransformer;
+
     public function __construct(Request $request, UserModel $userModel, LoginService $loginService, Response $response, TokenService $tokenService, UserTransformer $userTransformer)
     {
         $this->request = $request;
@@ -29,9 +29,6 @@ class LoginController
         $this->userTransformer = $userTransformer;
     }
 
-    /**
-     * @return void
-     */
     public function index(): Response
     {
         if (SessionService::getSession("user_username")) {
@@ -40,33 +37,32 @@ class LoginController
         return $this->response->view('Login');
     }
 
-    public function login(): Response
+    public function login()
     {
-        try {
-            $errorMessage = "";
+        if ($this->request->isPost()) {
             $userparams = $this->request->getBody();
             $this->userModel->fromArray($userparams);
-        if ($this->request->isPost()) {
             $userLogged = $this->loginService->login($this->userModel);
-            if (!is_array($userLogged)) {
-                return $this->response->redirect('/');
+            if (is_array($userLogged)) {
+                return $this->response->toJson([
+                    'message' => $userLogged],
+                    Response::HTTP_UNAUTHORIZED);
             }
-            $errorMessage = 'Username or password is invalid';
-        }
-            } catch (Exception $e) {
-                $errorMessage = 'Something went wrong!!!';
-            }
-
-            return $this->response->view('login', [
-                'username' => $this->userModel->getUsername() ?? "",
-                'password' => '',
-                'error' => $errorMessage,
+            $userTokenData = [
+                'id' => $userLogged->getID(),
+                'username' => $userLogged->getUsername()
+            ];
+            $data = $this->tokenService->jwtEncodeData($this->request->getHost() . $this->request->getPath(), $userTokenData);
+            return $this->response->toJson([
+                'data' => [
+                     $this->userTransformer->toArray($userLogged),
+                    'token' => $data
+                ], Response::HTTP_OK
             ]);
-        }
 
-    /**
-     * @return void
-     */
+        }
+    }
+
     public function logOut(): bool
     {
         SessionService::unsetSession('user_username');

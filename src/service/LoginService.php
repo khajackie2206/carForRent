@@ -19,14 +19,15 @@ class LoginService
      * @param UserModel $user
      * @return UserModel|null
      */
-    public function login(UserModel $user): UserModel | null
+    public function login(UserModel $user): array | UserModel
     {
+
         $existUser = $this->userRepository->findUserName($user->getUsername());
         if (!empty($existUser) && password_verify($user->getPassword(), $existUser->getPassword())) {
             SessionService::setSession("user_username", $existUser->getUsername());
             return $existUser;
         }
-        return null;
+        return ['errorMessage' => 'Username or Password is Invalid'];
     }
 
     /**
