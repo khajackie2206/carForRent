@@ -19,7 +19,7 @@ class Response
     public function toJson(array $data, int $statusCode = self::HTTP_OK): self
     {
         $this->setStatusCode($statusCode);
-        $this->setData([$data]);
+        $this->setData($data);
         $this->headers = array_merge($this->headers, [
             'Content-Type' => 'application/json'
         ]);
@@ -29,12 +29,7 @@ class Response
     public function view($template, array $data = null, int $statusCode = Response::HTTP_OK): self
     {
         $this->setTemplate($template);
-        if ($data != null) {
-            $this->setData([$data]);
-
-        } else {
-            $this->setData(null);
-        }
+        $this->setData($data);
         $this->setStatusCode($statusCode);
         return $this;
     }

@@ -28,7 +28,9 @@ class RouteConfig
             Route::get('/', CarController::class,'index'),
             Route::post('/logout', LoginController::class,'logOut'),
             Route::get('/login', LoginController::class,'index'),
-            Route::post('/login', LoginController::class,'login')
+            Route::post('/login', LoginController::class,'login'),
+            Route::get('/addcar',CarController::class, 'showForm'),
+             Route::post('/addcar',CarController::class, 'addCar')
         ];
    }
 

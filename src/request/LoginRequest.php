@@ -4,15 +4,46 @@ namespace Khanguyennfq\CarForRent\request;
 
 class LoginRequest
 {
-    public string $username;
-    public string $password;
+
+    private string $username;
+    private string $password;
 
     /**
-     * @param array $loginRequest
+     * @return mixed|string
      */
-    public function __construct(array $loginRequest)
+    public function getUsername(): mixed
     {
-        $this->username = $loginRequest['username'];
-        $this->password = $loginRequest['password'];
+        return $this->username;
+    }
+
+    /**
+     * @param mixed|string $username
+     */
+    public function setUsername(mixed $username): void
+    {
+        $this->username = $username;
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function getPassword(): mixed
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param mixed|string $password
+     */
+    public function setPassword(mixed $password): void
+    {
+        $this->password = $password;
+    }
+
+    public function fromArray(array $requestBody): self
+    {
+        $this->setUsername($requestBody['username']);
+        $this->setPassword($requestBody['password']);
+        return $this;
     }
 }

@@ -40,12 +40,14 @@ class LoginControllerAPI
     public function login()
     {
         if ($this->request->isPost()) {
-            $userparams = $this->request->getBody();
-            $this->userModel->fromArray($userparams);
+            $err = '';
+            $userParams = $this->request->getRequestJsonBody();
+            $this->userModel->fromArray($userParams);
             $userLogged = $this->loginService->login($this->userModel);
-            if (is_array($userLogged)) {
+            if ($userLogged==null) {
+                $err = 'Username or Password is invalid';
                 return $this->response->toJson([
-                    'message' => $userLogged],
+                    'message' => $err],
                     Response::HTTP_UNAUTHORIZED);
             }
             $userTokenData = [
@@ -54,11 +56,9 @@ class LoginControllerAPI
             ];
             $data = $this->tokenService->jwtEncodeData($this->request->getHost() . $this->request->getPath(), $userTokenData);
             return $this->response->toJson([
-                'data' => [
-                     $this->userTransformer->toArray($userLogged),
+                     'data'=>$this->userTransformer->toArray($userLogged),
                     'token' => $data
-                ], Response::HTTP_OK
-            ]);
+            ],Response::HTTP_OK);
 
         }
     }

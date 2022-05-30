@@ -54,12 +54,14 @@ class Request
         return $body;
     }
 
-
+    public function getFiles()
+    {
+        return $_FILES;
+    }
 
     public function getRequestJsonBody()
     {
         $data = file_get_contents('php://input');
-
         return json_decode($data, true);
     }
 }

@@ -17,8 +17,6 @@ class LoginController
     private $userModel;
     private $request;
     private $response;
-    private $tokenService;
-    private $userTransformer;
     public function __construct(Request $request, UserModel $userModel, LoginService $loginService, Response $response, TokenService $tokenService, UserTransformer $userTransformer)
     {
         $this->request = $request;
@@ -48,7 +46,7 @@ class LoginController
             $this->userModel->fromArray($userparams);
         if ($this->request->isPost()) {
             $userLogged = $this->loginService->login($this->userModel);
-            if (!is_array($userLogged)) {
+            if ($userLogged!=null) {
                 return $this->response->redirect('/');
             }
             $errorMessage = 'Username or password is invalid';
@@ -57,16 +55,13 @@ class LoginController
                 $errorMessage = 'Something went wrong!!!';
             }
 
-            return $this->response->view('login', [
+            return $this->response->view('Login', [
                 'username' => $this->userModel->getUsername() ?? "",
                 'password' => '',
                 'error' => $errorMessage,
             ]);
         }
 
-    /**
-     * @return void
-     */
     public function logOut(): bool
     {
         SessionService::unsetSession('user_username');

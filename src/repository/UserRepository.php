@@ -15,10 +15,9 @@ class UserRepository
     }
 
     /**
-     * @param $username
+     * @param string $username
      * @return UserModel|null
      */
-
     public function findUserName(string $username): ?UserModel
     {
         $sql = $this->conn->prepare("SELECT * FROM user WHERE username = ? ");
