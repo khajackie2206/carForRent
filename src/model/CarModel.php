@@ -4,7 +4,7 @@ namespace Khanguyennfq\CarForRent\model;
 
 class CarModel
 {
-    private int $ID;
+    private string $ID;
     private string $brandName;
     private int $cost;
     private string $color;
@@ -13,7 +13,7 @@ class CarModel
     /**
      * @return int
      */
-    public function getID(): int
+    public function getID(): string
     {
         return $this->ID;
     }
@@ -21,7 +21,7 @@ class CarModel
     /**
      * @param int $ID
      */
-    public function setID(int $ID): void
+    public function setID(string $ID): void
     {
         $this->ID = $ID;
     }

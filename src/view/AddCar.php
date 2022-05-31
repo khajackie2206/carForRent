@@ -19,8 +19,8 @@
         <!-- Custom styles for this template -->
         <link href="./assets/css/style.css" rel="stylesheet">
     </head>
-    <body >
-    <form action="/addcar" method="post" enctype="multipart/form-data" >
+    <body class="body-car">
+    <form action="/addcar" method="post" enctype="multipart/form-data" class="form-addcar">
         <div style="text-align: center">
         <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72"
              height="72" >
@@ -28,11 +28,11 @@
         <h1 class="h3 mb-3 font-weight-normal" style="text-align: center;">Create new Car</h1>
         <div class="form-group">
             <label for="exampleInputEmail1" class="name_title">Brand</label>
-            <input type="text" class="form-control" name="brand" id="brand" aria-describedby="emailHelp" placeholder="Enter Car branch">
+            <input type="text" class="form-control" name="brand" id="brand" aria-describedby="emailHelp" placeholder="Enter Car brand">
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1" class="name_title">Price</label>
-            <input type="text" class="form-control" name="price" id="price" placeholder="Enter cost">
+            <input type="number" class="form-control" name="price" id="price" placeholder="Enter cost">
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1" class="name_title">Color</label>
@@ -47,6 +47,11 @@
         </div>
         <!-- Submit button -->
         <button type="submit" class="btn btn-primary btn-block mb-4">Send</button>
+        <?php
+        if (isset($data)) {
+        echo "<div class='alert alert-danger' role='alert' style='text-align: center;'> ".$data['error']." </div>";
+        }
+        ?>
     </form>
     </body>
     </html>

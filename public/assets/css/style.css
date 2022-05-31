@@ -52,3 +52,14 @@ body {
 .home-return {
     margin-top: 15px;
 }
+.form-addcar{
+    margin-top: 50px;
+    width: 700px;
+    padding: 50px;
+    background-color: white;
+    border-radius: 15px;
+}
+.body-car{
+    background-image: url("https://wallpaperaccess.com/full/5636721.jpg");
+    background-position: center;
+}

@@ -4,6 +4,7 @@ namespace Khanguyennfq\CarForRent\repository;
 use Khanguyennfq\CarForRent\model\CarModel;
 use Khanguyennfq\CarForRent\database\DatabaseConnect;
 use PDO;
+use Exception;
 class CarRepository
 {
     private $conn;
@@ -13,12 +14,20 @@ class CarRepository
         $this->conn = DatabaseConnect::getConnection();
     }
 
+    /**
+     * @param $newcar
+     * @return bool
+     */
     public function addCar($newcar): bool
     {
-        $sql = $this->conn->prepare("INSERT ONTO car(ID, brand, price, color, thumb VALUES (?,?,?,?) ");
-        return $sql->execute($newcar);
+            $sql = $this->conn->prepare("INSERT INTO car (ID, brand, price, color, thumb) VALUES (? ,? ,? ,? ,?)");
+            return $sql->execute([$newcar[0],$newcar[1],$newcar[2],$newcar[3],$newcar[4]]);
     }
 
+
+    /**
+     * @return array|null
+     */
     public function listCar()
     {
         $sql = $this->conn->prepare("SELECT * FROM `car`");
