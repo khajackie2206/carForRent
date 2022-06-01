@@ -13,7 +13,7 @@ class UploadFileService
      * @param $file
      * @return string|array
      */
-    public function handleUpload($file): string | array
+    public function handleUpload($file)
     {
         self::$loadEnv = Dotenv::createImmutable(__DIR__ . '/../../');
         self::$loadEnv->load();
