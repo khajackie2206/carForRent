@@ -20,9 +20,9 @@ class Response
     {
         $this->setStatusCode($statusCode);
         $this->setData($data);
-        $this->headers = array_merge($this->headers, [
+        /*$this->headers = array_merge($this->headers, [
             'Content-Type' => 'application/json'
-        ]);
+        ]);*/
         return $this;
     }
 

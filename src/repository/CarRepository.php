@@ -1,10 +1,12 @@
 <?php
 
 namespace Khanguyennfq\CarForRent\repository;
+
 use Khanguyennfq\CarForRent\model\CarModel;
 use Khanguyennfq\CarForRent\database\DatabaseConnect;
 use PDO;
 use Exception;
+
 class CarRepository
 {
     private $conn;
@@ -33,12 +35,11 @@ class CarRepository
         $sql = $this->conn->prepare("SELECT * FROM `car`");
         $sql->execute();
         $row = $sql->fetchAll(PDO::FETCH_ASSOC);
-        if(!$row)
-        {
+        if (!$row) {
             return null;
         }
         $carArray = [];
-        foreach ($row as $key => $car){
+        foreach ($row as $key => $car) {
             $carData = new CarModel();
             $carData->setID($car['ID']);
             $carData->setBrandName($car['brand']);

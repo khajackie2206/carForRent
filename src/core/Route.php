@@ -1,6 +1,7 @@
 <?php
 
 namespace Khanguyennfq\CarForRent\core;
+
 use Khanguyennfq\CarForRent\core\Request;
 use Khanguyennfq\CarForRent\app\View;
 
@@ -14,10 +15,10 @@ class Route
 
     public function __construct(string $method, string $uri, string $controllerClassName, string $actionName)
     {
-       $this->setMethod($method);
-       $this->setUri($uri);
-       $this->setControllerClassName($controllerClassName);
-       $this->setActionName($actionName);
+        $this->setMethod($method);
+        $this->setUri($uri);
+        $this->setControllerClassName($controllerClassName);
+        $this->setActionName($actionName);
     }
     public static function post(string $uri, string $controllerClassName, string $actionName): Route
     {

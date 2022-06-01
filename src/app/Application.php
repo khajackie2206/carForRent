@@ -1,12 +1,14 @@
 <?php
 
 namespace Khanguyennfq\CarForRent\app;
+
 use Khanguyennfq\CarForRent\core\Request;
 use Khanguyennfq\CarForRent\core\Response;
 use Khanguyennfq\CarForRent\core\Route;
 use Khanguyennfq\CarForRent\controller\NotFoundController;
 use Khanguyennfq\CarForRent\core\RouteConfig;
 use Khanguyennfq\CarForRent\core\Container;
+
 class Application
 {
     private Request $request;
@@ -26,29 +28,27 @@ class Application
         foreach ($routes as $route) {
             if ($route->getMethod() !== $method || $route->getUri() !== $uri) {
                 continue;
-        }
-        return $route;
+            }
+            return $route;
         }
         return false;
     }
 
-     public function run()
-     {
+    public function run()
+    {
         $controllerClassName = NotFoundController::class;
         $actionName = NotFoundController::INDEX_ACTION;
-         $route = $this->getRoute();
-         if($route){
+        $route = $this->getRoute();
+        if ($route) {
             $controllerClassName = $route->getControllerClassName();
-            $actionName =$route->getActionName();
+            $actionName = $route->getActionName();
         }
         $container = new Container();
         $controller = $container->make($controllerClassName);
-         /**
-          * @var Response $response
-          */
+        /**
+         * @var Response $response
+         */
         $response = $controller->{$actionName}();
         return View::handle($response);
-     }
-
-
+    }
 }

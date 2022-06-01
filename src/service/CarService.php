@@ -1,6 +1,7 @@
 <?php
 
 namespace Khanguyennfq\CarForRent\service;
+
 use Khanguyennfq\CarForRent\model\CarModel;
 use Khanguyennfq\CarForRent\repository\CarRepository;
 use Khanguyennfq\CarForRent\transfer\CarTransfer;
@@ -18,7 +19,7 @@ class CarService
      */
     public function __construct(CarRepository $carRepository)
     {
-      $this->carRepository = $carRepository;
+        $this->carRepository = $carRepository;
     }
 
     /**
@@ -36,8 +37,7 @@ class CarService
             $carTransfer->getColor(),
             $carTransfer->getThumb()
         ];
-        if(!$this->carRepository->addCar($load))
-        {
+        if (!$this->carRepository->addCar($load)) {
             return null;
         }
         $car = new CarModel();

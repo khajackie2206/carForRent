@@ -45,8 +45,13 @@ body {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
-.notfound {
+.body-notfound {
     margin-top: 200px;
+    background-image: url("https://wallpapercave.com/wp/wp8639649.jpg");
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .home-return {
     margin-top: 55px;

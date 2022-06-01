@@ -1,8 +1,10 @@
 <?php
 
 namespace Khanguyennfq\CarForRent\controller;
+
 use Khanguyennfq\CarForRent\core\Request;
 use Khanguyennfq\CarForRent\core\Response;
+
 abstract class BaseController
 {
     protected Request $request;

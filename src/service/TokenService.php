@@ -4,38 +4,26 @@ namespace Khanguyennfq\CarForRent\service;
 
 use Exception;
 use Firebase\JWT\JWT;
+use Dotenv\Dotenv;
+
 class TokenService
 {
     private string $jwtSecret;
-    private array $token;
-    private int $issueAt;
-    private int $expire;
-    private string $jwt;
+    private static $loadEnv;
 
     public function __construct()
     {
-        date_default_timezone_set('Asia/Ho_Chi_Minh');
-        $this->issueAt = time();
-        $this->expire = $this->issueAt + 3600;
-        $this->jwtSecret = 'khajackie2206';
+        self::$loadEnv = Dotenv::createImmutable(__DIR__ . '/../../');
+        self::$loadEnv->load();
+        $this->jwtSecret = $_ENV['JWT_SECRET_TOKEN'];
     }
 
-    /**
-     * @param $iss
-     * @param $data
-     * @return string
-     */
-    public function jwtEncodeData($iss, $data): string
+    public function jwtEncodeData(int $userID): string
     {
-        $this->token = array (
-            "iss" => $iss,
-            "aud" => $iss,
-            "iat" => $this->issueAt,
-            "exp" => $this->expire,
-            "data" =>$data
-        );
-        $this->jwt = JWT::encode($this->token, $this->jwtSecret,'HS256');
-        return $this->jwt;
+        $payload = [
+           'sub' => $userID,
+           'iat' => time()
+        ];
+        return JWT::encode($payload, $this->jwtSecret, 'HS256');
     }
-
 }

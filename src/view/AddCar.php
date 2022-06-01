@@ -22,8 +22,9 @@
     <body class="body-car">
     <form action="/addcar" method="post" enctype="multipart/form-data" class="form-addcar">
         <?php
+
         if (isset($data['success'])) {
-            echo "<div class='alert alert-success' role='alert' style='text-align: center;'> ".$data['success']." </div>";
+            echo "<div class='alert alert-success' role='alert' style='text-align: center;'> " . $data['success'] . " </div>";
         }
         ?>
         <div style="text-align: center">
@@ -54,7 +55,7 @@
         <button type="submit" class="btn btn-primary btn-block mb-4">Send</button>
         <?php
         if (isset($data['error'])) {
-        echo "<div class='alert alert-danger' role='alert' style='text-align: center;'> ".$data['error']." </div>";
+            echo "<div class='alert alert-danger' role='alert' style='text-align: center;'> " . $data['error'] . " </div>";
         }
         ?>
     </form>

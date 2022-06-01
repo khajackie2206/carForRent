@@ -1,6 +1,7 @@
 <?php
 
 namespace Khanguyennfq\CarForRent\controller;
+
 use Khanguyennfq\CarForRent\app\View;
 use Khanguyennfq\CarForRent\core\Request;
 use Khanguyennfq\CarForRent\core\Response;
@@ -10,6 +11,7 @@ use Khanguyennfq\CarForRent\service\SessionService;
 use Khanguyennfq\CarForRent\service\TokenService;
 use Khanguyennfq\CarForRent\transformer\UserTransformer;
 use Exception;
+
 class LoginController
 {
 
@@ -44,23 +46,23 @@ class LoginController
             $errorMessage = "";
             $userparams = $this->request->getBody();
             $this->userModel->fromArray($userparams);
-        if ($this->request->isPost()) {
-            $userLogged = $this->loginService->login($this->userModel);
-            if ($userLogged!=null) {
-                return $this->response->redirect('/');
+            if ($this->request->isPost()) {
+                $userLogged = $this->loginService->login($this->userModel);
+                if ($userLogged != null) {
+                    return $this->response->redirect('/');
+                }
+                $errorMessage = 'Username or password is invalid';
             }
-            $errorMessage = 'Username or password is invalid';
+        } catch (Exception $e) {
+            $errorMessage = 'Something went wrong!!!';
         }
-            } catch (Exception $e) {
-                $errorMessage = 'Something went wrong!!!';
-            }
 
             return $this->response->view('Login', [
                 'username' => $this->userModel->getUsername() ?? "",
                 'password' => '',
                 'error' => $errorMessage,
             ]);
-        }
+    }
 
     public function logOut(): bool
     {

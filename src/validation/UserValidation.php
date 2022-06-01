@@ -1,7 +1,10 @@
 <?php
+
 namespace Khanguyennfq\CarForRent\validation;
+
 use Khanguyennfq\CarForRent\core\Request;
 use Khanguyennfq\CarForRent\model\UserModel;
+
 class UserValidation
 {
 
@@ -12,5 +15,4 @@ class UserValidation
         }
         return true;
     }
-
 }

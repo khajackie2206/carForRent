@@ -8,7 +8,7 @@ class CarValidation
 {
     public function validate(CarTransfer $car): bool
     {
-        if ($car->getPrice()=='' || $car->getColor() =='' || $car->getBrand() =='' || $car->getThumb() =='') {
+        if ($car->getPrice() == '' || $car->getColor() == '' || $car->getBrand() == '' || $car->getThumb() == '') {
             return true;
         }
         return false;

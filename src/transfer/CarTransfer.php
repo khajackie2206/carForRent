@@ -1,5 +1,7 @@
 <?php
+
 namespace Khanguyennfq\CarForRent\transfer;
+
 class CarTransfer
 {
     private ?string $brand;
@@ -79,5 +81,4 @@ class CarTransfer
         $this->thumb = $params['file'] ?? null;
         return $this;
     }
-
 }

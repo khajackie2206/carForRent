@@ -6,6 +6,7 @@ use Dotenv\Exception\ValidationException;
 use Khanguyennfq\CarForRent\model\UserModel;
 use Khanguyennfq\CarForRent\repository\UserRepository;
 use Khanguyennfq\CarForRent\validation\UserValidation;
+
 class LoginService
 {
     private $userRepository;
@@ -28,5 +29,4 @@ class LoginService
         }
         return null;
     }
-
 }
