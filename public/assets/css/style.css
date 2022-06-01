@@ -20,7 +20,6 @@ body {
 
 .form-signin {
     width: 100%;
-    max-width: 330px;
     padding: 15px;
     margin: 0 auto;
 }
@@ -50,7 +49,8 @@ body {
     margin-top: 200px;
 }
 .home-return {
-    margin-top: 15px;
+    margin-top: 55px;
+
 }
 .form-addcar{
     margin-top: 50px;
@@ -62,4 +62,14 @@ body {
 .body-car{
     background-image: url("https://wallpaperaccess.com/full/5636721.jpg");
     background-position: center;
+}
+.form-login{
+    margin-top: 50px;
+    width: 450px;
+    padding: 50px;
+    background-color: white;
+    border-radius: 15px;
+}
+#inputEmail{
+    margin-bottom: 20px;
 }

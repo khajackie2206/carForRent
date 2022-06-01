@@ -8,12 +8,23 @@ use Ramsey\Uuid\Uuid;
 
 class CarService
 {
+    /**
+     * @var CarRepository
+     */
     private CarRepository $carRepository;
+
+    /**
+     * @param CarRepository $carRepository
+     */
     public function __construct(CarRepository $carRepository)
     {
       $this->carRepository = $carRepository;
     }
 
+    /**
+     * @param CarTransfer $carTransfer
+     * @return CarModel|null
+     */
     public function createCar(CarTransfer $carTransfer): ?CarModel
     {
 

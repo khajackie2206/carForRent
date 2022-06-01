@@ -18,11 +18,11 @@
     <!-- Custom styles for this template -->
     <link href="./assets/css/style.css" rel="stylesheet">
 </head>
-<body class="text-center">
-<form class="form-signin" method="POST">
+<body class="text-center body-car">
+<form class="form-signin form-login" method="POST">
     <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72"
          height="72">
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <h1 class="h3 mb-3 font-weight-normal" style="padding-bottom: 50px;">Please sign in</h1>
     <label for="inputEmail" class="sr-only">Email address</label>
     <input type="text" name="username" id="inputEmail" class="form-control" placeholder="Email address" autofocus>
     <label for="inputPassword" class="sr-only">Password</label>

@@ -21,6 +21,11 @@
     </head>
     <body class="body-car">
     <form action="/addcar" method="post" enctype="multipart/form-data" class="form-addcar">
+        <?php
+        if (isset($data['success'])) {
+            echo "<div class='alert alert-success' role='alert' style='text-align: center;'> ".$data['success']." </div>";
+        }
+        ?>
         <div style="text-align: center">
         <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72"
              height="72" >
@@ -48,7 +53,7 @@
         <!-- Submit button -->
         <button type="submit" class="btn btn-primary btn-block mb-4">Send</button>
         <?php
-        if (isset($data)) {
+        if (isset($data['error'])) {
         echo "<div class='alert alert-danger' role='alert' style='text-align: center;'> ".$data['error']." </div>";
         }
         ?>

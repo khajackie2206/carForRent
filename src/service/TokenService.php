@@ -20,7 +20,6 @@ class TokenService
         $this->jwtSecret = 'khajackie2206';
     }
 
-
     /**
      * @param $iss
      * @param $data

@@ -2,9 +2,7 @@
 
 namespace Khanguyennfq\CarForRent\controller;
 
-use Khanguyennfq\CarForRent\repository\CarRepository;
 use Khanguyennfq\CarForRent\core\Response;
-use Khanguyennfq\CarForRent\model\CarModel;
 use Khanguyennfq\CarForRent\core\Request;
 use Khanguyennfq\CarForRent\service\CarService;
 use Khanguyennfq\CarForRent\service\UploadFileService;
@@ -18,6 +16,7 @@ class CarController
     private CarService $carService;
     private UploadFileService $uploadFileService;
     private CarValidation $carValidation;
+
     public function __construct( Response $response,   Request $request, CarService $carService, UploadFileService $uploadFileService, CarValidation $carValidation)
     {
         $this->response = $response;
@@ -27,12 +26,18 @@ class CarController
         $this->carValidation = $carValidation;
     }
 
+    /**
+     * @return Response
+     */
     public function index(): Response
     {
             $carList = $this->carService->listCar();
            return $this->response->view('HomePage', ["carList" => $carList]);
     }
 
+    /**
+     * @return Response
+     */
     public function addCar(): Response
     {
         try {
@@ -49,16 +54,17 @@ class CarController
                return $this->response->view('AddCar', ['error' => "Don't let any field empty!!!"]);
             }
             if ($img['name']){
-                $errorUpload = $this->uploadFileService->handleUpload($img, "img/","image", 500000);
-                if($errorUpload){
-                    return $this->response->view('AddCar', ['error' => $errorUpload]);
+                $isUploadImage = $this->uploadFileService->handleUpload($img);
+                if(is_array($isUploadImage)) {
+                    return $this->response->view('AddCar',  $isUploadImage);
                 }
+                $carTransfer->setThumb($isUploadImage);
             }
             $car = $this->carService->createCar($carTransfer);
             if(empty($car)){
-                return $this->response->view('AddCar',['error'=>"Something deo on!!!"]);
+                return $this->response->view('AddCar',['error'=>"Can't create car!!!"]);
             }
-            return $this->response->redirect("/");
+            return $this->response->view('AddCar',['success'=>"Add car successfully!!!"]);
 
         } catch (Exception $e){
             return $this->response->view('AddCar',['error'=>'Something went wrong!!!']);

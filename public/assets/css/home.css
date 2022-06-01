@@ -68,11 +68,13 @@ footer p {
     max-width: 1100px;
     margin: auto;
     background-color: #f8f9fa !important;
-    padding-top: 50px;
+    padding-top: 20px;
     margin-bottom: 50px;
 }
 .picture_car{
     max-height: 500px;
     max-width: 1160px;
-
+}
+.card-car-cover {
+    margin-top: -50px;
 }

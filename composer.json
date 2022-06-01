@@ -25,6 +25,7 @@
         "paragonie/sodium_compat": "^1.17",
         "ext-pdo": "*",
         "vlucas/phpdotenv": "^5.4",
-        "ramsey/uuid": "^4.3"
+        "ramsey/uuid": "^4.3",
+        "aws/aws-sdk-php": "^3.224"
     }
 }
