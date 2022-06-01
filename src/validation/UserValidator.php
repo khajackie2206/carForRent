@@ -5,7 +5,7 @@ namespace Khanguyennfq\CarForRent\validation;
 use Khanguyennfq\CarForRent\core\Request;
 use Khanguyennfq\CarForRent\model\UserModel;
 
-class UserValidation
+class UserValidator
 {
 
     public function validateLogin(UserModel $user): bool

@@ -35,18 +35,22 @@
         <div class="form-group">
             <label for="exampleInputEmail1" class="name_title">Brand</label>
             <input type="text" class="form-control" name="brand" id="brand" aria-describedby="emailHelp" placeholder="Enter Car brand">
+            <p style="color:red; height: 15px;"><?=$data['errorMessage']['brand'] ?? ' '?></p>
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1" class="name_title">Price</label>
             <input type="number" class="form-control" name="price" id="price" placeholder="Enter cost">
+            <p style="color:red; height: 15px;"><?=$data['errorMessage']['price'] ?? ' '?></p>
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1" class="name_title">Color</label>
             <input type="text" class="form-control" name="color" id="price" placeholder="Enter color">
+            <p style="color:red; height: 15px;"><?=$data['errorMessage']['color'] ?? ' '?></p>
         </div>
         <div class="form-group" class="name_title">
                 <label for="exampleFormControlFile1">Add picture</label>
                 <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
+                <p style="color:red; height: 15px;"><?=$data['errorMessage']['error'] ?? ' '?></p>
         </div>
         <div class="checkbox mb-3 home-return" style="text-align: center;">
             <a href="/" >Return to home page</a>

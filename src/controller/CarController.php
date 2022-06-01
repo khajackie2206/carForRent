@@ -7,8 +7,9 @@ use Khanguyennfq\CarForRent\core\Request;
 use Khanguyennfq\CarForRent\service\CarService;
 use Khanguyennfq\CarForRent\service\UploadFileService;
 use Khanguyennfq\CarForRent\transfer\CarTransfer;
-use Khanguyennfq\CarForRent\validation\CarValidation;
+use Khanguyennfq\CarForRent\validation\CarValidator;
 use Exception;
+use Khanguyennfq\CarForRent\validation\ImageValidator;
 
 class CarController
 {
@@ -16,15 +17,22 @@ class CarController
     private $request;
     private CarService $carService;
     private UploadFileService $uploadFileService;
-    private CarValidation $carValidation;
-
-    public function __construct(Response $response, Request $request, CarService $carService, UploadFileService $uploadFileService, CarValidation $carValidation)
+    private CarValidator $carValidator;
+    private ImageValidator $imageValidator;
+    public function __construct(
+        Response $response,
+        Request $request,
+        CarService $carService,
+        UploadFileService $uploadFileService,
+        CarValidator $carValidator,
+        ImageValidator $imageValidator)
     {
         $this->response = $response;
         $this->request = $request;
         $this->carService = $carService;
         $this->uploadFileService = $uploadFileService;
-        $this->carValidation = $carValidation;
+        $this->carValidator = $carValidator;
+        $this->imageValidator = $imageValidator;
     }
 
     /**
@@ -47,27 +55,24 @@ class CarController
             $params['file'] = $img['name'];
             $carTransfer = new CarTransfer();
             $carTransfer->formArray($params);
-            $errorValidate = $this->carValidation->validate($carTransfer);
-            if ($errorValidate) {
-                return $this->response->view('AddCar', ['error' => "Don't let any field empty!!!"]);
+            $carValidate = $this->carValidator->validateCar($carTransfer);
+            $imgValidate = $this->imageValidator->validateImage($img);
+            $errorMessage = array_merge(is_array($carValidate) ? $carValidate : [] , is_array($imgValidate) ? $imgValidate : []);
+            if (!empty($errorMessage)) {
+                return $this->response->view('AddCar', ['errorMessage' => $errorMessage]);
             }
-            if ($img['name']) {
-                $isUploadImage = $this->uploadFileService->handleUpload($img);
-                if (is_array($isUploadImage)) {
-                    return $this->response->view('AddCar', $isUploadImage);
-                }
-                $carTransfer->setThumb($isUploadImage);
-            }
-            $car = $this->carService->createCar($carTransfer);
-            if (empty($car)) {
-                return $this->response->view('AddCar', ['error' => "Can't create car!!!"]);
-            }
+            $isUploadImage = $this->uploadFileService->handleUpload($img);
+            $carTransfer->setThumb($isUploadImage);
+            $this->carService->createCar($carTransfer);
             return $this->response->view('AddCar', ['success' => "Add car successfully!!!"]);
         } catch (Exception $e) {
             return $this->response->view('AddCar', ['error' => 'Something went wrong!!!']);
         }
     }
 
+    /**
+     * @return Response
+     */
     public function showForm(): Response
     {
         return $this->response->view('AddCar');
