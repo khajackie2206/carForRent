@@ -18,7 +18,7 @@ class LoginService
      * @param UserModel $user
      * @return UserModel|array
      */
-    public function login(UserModel $user):UserModel|null
+    public function login(UserModel $user)
     {
         $userValidation = new UserValidation();
         $existUser = $this->userRepository->findUserName($user->getUsername());
