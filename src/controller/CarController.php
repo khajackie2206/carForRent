@@ -43,10 +43,7 @@ class CarController
         try {
             $params = $this->request->getFormParams();
             $img = $this->request->getFiles()['file'];
-            $params = [
-              ...$params,
-                "file" => $img["name"]
-            ];
+            $params['file'] = $img['name'];
             $carTransfer = new CarTransfer();
             $carTransfer->formArray($params);
             $errorValidate = $this->carValidation->validate($carTransfer);
