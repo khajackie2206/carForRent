@@ -76,6 +76,7 @@ class CarTransfer
         $this->brand = $params['brand'] ?? null;
         $this->price = $params['price'] ? $params['price'] : null;
         $this->color = $params['color'] ?? null;
+        $this->thumb = $params['file'] ?? null;
         return $this;
     }
 
