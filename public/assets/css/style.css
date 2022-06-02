@@ -75,6 +75,13 @@ body {
     background-color: white;
     border-radius: 15px;
 }
+.form-register{
+    margin-top: 50px;
+    width: 550px;
+    padding: 50px;
+    background-color: white;
+    border-radius: 15px;
+}
 #inputEmail{
     margin-bottom: 20px;
 }

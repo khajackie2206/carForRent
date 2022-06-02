@@ -8,7 +8,7 @@
         <meta name="author" content="">
         <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
-        <title>Signin Template for Bootstrap</title>
+        <title>Add car</title>
 
         <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">
 
@@ -28,8 +28,8 @@
         }
         ?>
         <div style="text-align: center">
-        <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72"
-             height="72" >
+        <img class="mb-4" src="https://pngimage.net/wp-content/uploads/2018/05/audi-a8-png-6.png" alt="" width="156"
+             height="110" >
         </div>
         <h1 class="h3 mb-3 font-weight-normal" style="text-align: center;">Create new Car</h1>
         <div class="form-group">

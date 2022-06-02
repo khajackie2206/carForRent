@@ -6,6 +6,7 @@ use Khanguyennfq\CarForRent\controller\API\LoginControllerAPI;
 use Khanguyennfq\CarForRent\controller\CarController;
 use Khanguyennfq\CarForRent\controller\LoginController;
 use Khanguyennfq\CarForRent\controller\API\CarControllerAPI;
+use Khanguyennfq\CarForRent\controller\RegisterController;
 
 class RouteConfig
 {
@@ -32,7 +33,9 @@ class RouteConfig
             Route::get('/login', LoginController::class, 'index'),
             Route::post('/login', LoginController::class, 'login'),
             Route::get('/addcar', CarController::class, 'showForm'),
-             Route::post('/addcar', CarController::class, 'addCar')
+             Route::post('/addcar', CarController::class, 'addCar'),
+            Route::get('/register', RegisterController::class, 'index')
+
         ];
     }
 
