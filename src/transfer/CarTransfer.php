@@ -5,7 +5,7 @@ namespace Khanguyennfq\CarForRent\transfer;
 class CarTransfer
 {
     private string $brand;
-    private int $price;
+    private int|string $price;
     private string $color;
     private string $thumb;
 
@@ -36,9 +36,9 @@ class CarTransfer
     /**
      * @param int|null $price
      */
-    public function setPrice(int $price): void
+    public function setPrice(int|string $price): void
     {
-        if(is_numeric($price)){
+        if(is_numeric($price) ){
             $this->price = (int)$price;
         } else{
             $this->price = 0;
