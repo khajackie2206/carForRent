@@ -133,7 +133,7 @@
         <p class="float-right">
             <a href="#">Back to top</a>
         </p>
-        <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
+        <p>This website is made by Khajackie - minhkha.nguyen@nfq.asia</p>
     </div>
 </footer>
 </body>

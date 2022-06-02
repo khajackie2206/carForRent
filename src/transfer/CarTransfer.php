@@ -4,15 +4,15 @@ namespace Khanguyennfq\CarForRent\transfer;
 
 class CarTransfer
 {
-    private ?string $brand;
-    private ?int $price;
-    private ?string $color;
-    private ?string $thumb;
+    private string $brand;
+    private int $price;
+    private string $color;
+    private string $thumb;
 
     /**
      * @return string|null
      */
-    public function getBrand(): ?string
+    public function getBrand(): string
     {
         return $this->brand;
     }
@@ -20,7 +20,7 @@ class CarTransfer
     /**
      * @param string|null $brand
      */
-    public function setBrand(?string $brand): void
+    public function setBrand(string $brand): void
     {
         $this->brand = $brand;
     }
@@ -28,7 +28,7 @@ class CarTransfer
     /**
      * @return int|null
      */
-    public function getPrice(): ?int
+    public function getPrice(): int
     {
         return $this->price;
     }
@@ -36,15 +36,19 @@ class CarTransfer
     /**
      * @param int|null $price
      */
-    public function setPrice(?int $price): void
+    public function setPrice(int $price): void
     {
-        $this->price = $price;
+        if(is_numeric($price)){
+            $this->price = (int)$price;
+        } else{
+            $this->price = 0;
+        }
     }
 
     /**
      * @return string|null
      */
-    public function getColor(): ?string
+    public function getColor(): string
     {
         return $this->color;
     }
@@ -52,7 +56,7 @@ class CarTransfer
     /**
      * @param string|null $color
      */
-    public function setColor(?string $color): void
+    public function setColor(string $color): void
     {
         $this->color = $color;
     }
@@ -60,7 +64,7 @@ class CarTransfer
     /**
      * @return string|null
      */
-    public function getThumb(): ?string
+    public function getThumb(): string
     {
         return $this->thumb;
     }
@@ -68,17 +72,17 @@ class CarTransfer
     /**
      * @param string|null $thumb
      */
-    public function setThumb(?string $thumb): void
+    public function setThumb(string $thumb): void
     {
         $this->thumb = $thumb;
     }
 
     public function formArray(array $params)
     {
-        $this->brand = $params['brand'] ?? null;
-        $this->price = $params['price'] ? $params['price'] : null;
-        $this->color = $params['color'] ?? null;
-        $this->thumb = $params['file'] ?? null;
+        $this->setBrand($params['brand'] ?? null);
+        $this->setPrice($params['price'] ?? null);
+        $this->setColor($params['color'] ?? null);
+        $this->setThumb($params['file'] ?? null);
         return $this;
     }
 }

@@ -9,18 +9,14 @@ class CarValidator
 
     public function validateCar(CarTransfer $car)
     {
-        $carError = [];
-        if ($car->getBrand() == '') {
-            $carError['brand'] = "Brand can't be empty!";
+        $validator = new Validator();
+        $validator->name('brand')->value($car->getBrand())->min(3)->max(255)->required();
+        $validator->name('color')->value($car->getColor())->max(30)->required();
+        $validator->name('price')->value($car->getPrice())->is_int()->max(5000)->required();
+        if($validator->isSuccess()){
+            return [];
+        } else {
+            return $validator->getErrors();
         }
-        if ($car->getPrice() == '') {
-
-            $carError['price'] = "Price can't be empty!";
-        }
-        if ($car->getColor() == '') {
-
-            $carError['color'] = "Color can't be empty!";
-        }
-        return $carError;
     }
 }

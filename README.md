@@ -14,7 +14,7 @@ PHPUnit 9.0.0 by Sebastian Bergmann and contributors.
 #### + Test:
 
 ➜ ./vendor/bin/phpunit tests
-
+➜ XDEBUG_MODE=coverage ./vendor/bin/phpunit tests --coverage-html coverage
 ## * PHPCBS 
 ➜  phpcbf --standard=PSR12 ./src
 

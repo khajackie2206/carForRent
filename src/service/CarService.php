@@ -28,7 +28,6 @@ class CarService
      */
     public function createCar(CarTransfer $carTransfer): ?CarModel
     {
-
         $uuid = Uuid::uuid4()->toString();
         $load = [
             $uuid,

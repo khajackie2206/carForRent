@@ -50,7 +50,7 @@ class CarController
     public function addCar(): Response
     {
         try {
-            $params = $this->request->getFormParams();
+            $params = $this->request->getBody();
             $img = $this->request->getFiles()['file'];
             $params['file'] = $img['name'];
             $carTransfer = new CarTransfer();
