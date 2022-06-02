@@ -12,7 +12,7 @@ class UploadFileService
 
     /**
      * @param $file
-     * @return string|array
+     * @return mixed|null
      */
     public function handleUpload($file)
     {

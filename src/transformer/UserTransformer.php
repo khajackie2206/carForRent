@@ -6,6 +6,10 @@ use Khanguyennfq\CarForRent\model\UserModel;
 
 class UserTransformer
 {
+    /**
+     * @param UserModel $user
+     * @return array
+     */
     public function toArray(UserModel $user): array
     {
         return [

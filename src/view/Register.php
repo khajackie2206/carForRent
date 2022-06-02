@@ -43,10 +43,10 @@
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
     <p class="mt-5" style="color: red;"><?php
 
-        if (isset($data)) {
-            echo $data['error'];
-        }
-        ?></p>
+    if (isset($data)) {
+        echo $data['error'];
+    }
+    ?></p>
 </form>
 </body>
 </html>

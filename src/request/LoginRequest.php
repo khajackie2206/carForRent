@@ -40,6 +40,10 @@ class LoginRequest
         $this->password = $password;
     }
 
+    /**
+     * @param array $requestBody
+     * @return $this
+     */
     public function fromArray(array $requestBody): self
     {
         $this->setUsername($requestBody['username']);

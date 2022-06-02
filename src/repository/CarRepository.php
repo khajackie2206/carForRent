@@ -26,7 +26,6 @@ class CarRepository
             return $sql->execute([$newcar[0],$newcar[1],$newcar[2],$newcar[3],$newcar[4]]);
     }
 
-
     /**
      * @return array|null
      */

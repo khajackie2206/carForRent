@@ -73,8 +73,10 @@ class UserModel
         $this->ID = $ID;
     }
 
-
-
+    /**
+     * @param array $params
+     * @return void
+     */
     public function fromArray(array $params): void
     {
         $this->username = $params['username'] ?? null;

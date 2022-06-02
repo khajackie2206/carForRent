@@ -19,14 +19,15 @@ class CarController
     private UploadFileService $uploadFileService;
     private CarValidator $carValidator;
     private ImageValidator $imageValidator;
+
     public function __construct(
         Response $response,
         Request $request,
         CarService $carService,
         UploadFileService $uploadFileService,
         CarValidator $carValidator,
-        ImageValidator $imageValidator)
-    {
+        ImageValidator $imageValidator
+    ) {
         $this->response = $response;
         $this->request = $request;
         $this->carService = $carService;
@@ -57,7 +58,7 @@ class CarController
             $carTransfer->formArray($params);
             $carValidate = $this->carValidator->validateCar($carTransfer);
             $imgValidate = $this->imageValidator->validateImage($img);
-            $errorMessage = array_merge(is_array($carValidate) ? $carValidate : [] , is_array($imgValidate) ? $imgValidate : []);
+            $errorMessage = array_merge(is_array($carValidate) ? $carValidate : [], is_array($imgValidate) ? $imgValidate : []);
             if (!empty($errorMessage)) {
                 return $this->response->view('AddCar', ['errorMessage' => $errorMessage]);
             }

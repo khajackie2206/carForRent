@@ -33,7 +33,13 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a href="<?php if (isset($_SESSION['user_username'])) {echo "/addcar";} else { echo "#";}?>" class="navbar-brand d-flex align-items-center" style="color: white;">
+                <a href="<?php
+
+                if (isset($_SESSION['user_username'])) {
+                    echo "/addcar";
+                } else {
+                    echo "#";
+                }?>" class="navbar-brand d-flex align-items-center" style="color: white;">
                     <strong>Add Car &nbsp; </strong>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
@@ -52,9 +58,9 @@
         }
         ?>
         <a href="#" class="session" style="color: white; right: 150px;"> <strong><?php
-                if (isset($_SESSION['user_username'])) {
-                    echo "Hi " . $_SESSION['user_username'];
-                } ?></strong></a>
+        if (isset($_SESSION['user_username'])) {
+            echo "Hi " . $_SESSION['user_username'];
+        } ?></strong></a>
     </div>
 </nav>
 <header>

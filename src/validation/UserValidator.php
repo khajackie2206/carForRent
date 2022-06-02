@@ -8,6 +8,10 @@ use Khanguyennfq\CarForRent\model\UserModel;
 class UserValidator
 {
 
+    /**
+     * @param UserModel $user
+     * @return bool
+     */
     public function validateLogin(UserModel $user): bool
     {
         if (empty($user->getUsername()) || empty($user->getPassword())) {

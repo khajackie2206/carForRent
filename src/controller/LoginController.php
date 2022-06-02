@@ -40,6 +40,9 @@ class LoginController
         return $this->response->view('Login');
     }
 
+    /**
+     * @return Response
+     */
     public function login(): Response
     {
         try {
@@ -64,6 +67,9 @@ class LoginController
             ]);
     }
 
+    /**
+     * @return bool
+     */
     public function logOut(): bool
     {
         SessionService::unsetSession('user_username');

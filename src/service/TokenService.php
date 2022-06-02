@@ -18,6 +18,10 @@ class TokenService
         $this->jwtSecret = $_ENV['JWT_SECRET_TOKEN'];
     }
 
+    /**
+     * @param int $userID
+     * @return string
+     */
     public function jwtEncodeData(int $userID): string
     {
         $payload = [

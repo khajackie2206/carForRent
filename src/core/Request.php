@@ -6,8 +6,6 @@ class Request
 {
     const methodGet = "GET";
     const methodPost = "POST";
-    const methodPut = "PUT";
-    const methodDelete = "DELETE";
 
     /**
      * @return string
@@ -20,10 +18,15 @@ class Request
         }
         return substr($path, 0, strpos($path, '?'));
     }
+
+    /**
+     * @return string
+     */
     public function getHost(): string
     {
         return $_SERVER['HTTP_HOST'];
     }
+
     /**
      * @return string
      */
@@ -31,19 +34,34 @@ class Request
     {
         return $_SERVER['REQUEST_METHOD'];
     }
+
+    /**
+     * @return array
+     */
     public function getFormParams()
     {
         return $_REQUEST;
     }
+
+    /**
+     * @return bool
+     */
     public function isPost(): bool
     {
         return $this->getMethod() == 'POST';
     }
+
+    /**
+     * @return bool
+     */
     public function isGet(): bool
     {
         return $this->getMethod() == 'GET';
     }
 
+    /**
+     * @return array
+     */
     public function getBody(): array
     {
         $body = [];
@@ -54,11 +72,17 @@ class Request
         return $body;
     }
 
+    /**
+     * @return array
+     */
     public function getFiles()
     {
         return $_FILES;
     }
 
+    /**
+     * @return mixed
+     */
     public function getRequestJsonBody()
     {
         $data = file_get_contents('php://input');

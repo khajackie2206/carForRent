@@ -34,6 +34,10 @@ class Application
         return false;
     }
 
+    /**
+     * @return void
+     * @throws \ReflectionException
+     */
     public function run()
     {
         $controllerClassName = NotFoundController::class;

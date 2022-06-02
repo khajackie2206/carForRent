@@ -10,10 +10,6 @@ use Khanguyennfq\CarForRent\controller\RegisterController;
 
 class RouteConfig
 {
-   /**
-    *
-    */
-
     /**
      * @return Route[]
      */
@@ -23,7 +19,7 @@ class RouteConfig
     }
 
     /**
-     * @return Route[]
+     * @return array
      */
     public static function getWebRoutes(): array
     {
@@ -33,20 +29,20 @@ class RouteConfig
             Route::get('/login', LoginController::class, 'index'),
             Route::post('/login', LoginController::class, 'login'),
             Route::get('/addcar', CarController::class, 'showForm'),
-             Route::post('/addcar', CarController::class, 'addCar'),
+            Route::post('/addcar', CarController::class, 'addCar'),
             Route::get('/register', RegisterController::class, 'index')
 
         ];
     }
 
     /**
-     * @return Route[]
+     * @return array
      */
     public static function getApiRoutes(): array
     {
         return [
-         Route::post('/api/login', LoginControllerAPI::class, 'login'),
-           Route::get('/api/cars', CarControllerAPI::class, 'listCars'),
+            Route::post('/api/login', LoginControllerAPI::class, 'login'),
+            Route::get('/api/cars', CarControllerAPI::class, 'listCars'),
         ];
     }
 }

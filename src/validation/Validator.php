@@ -38,11 +38,11 @@ class Validator
         return $this;
     }
 
-    public function file($file){
+    public function file($file)
+    {
         $this->file = $file;
         return $this;
     }
-
 
     public function pattern($name)
     {
@@ -55,15 +55,6 @@ class Validator
             if ($this->value != '' && !preg_match($regex, $this->value)) {
                 $this->errors[$this->name] = 'Field format ' . $this->name . ' invalid.';
             }
-        }
-        return $this;
-    }
-
-    public function customPattern($pattern)
-    {
-        $regex = '/^(' . $pattern . ')$/u';
-        if ($this->value != '' && !preg_match($regex, $this->value)) {
-            $this->errors[$this->name] = 'Field format ' . $this->name . ' invailid.';
         }
         return $this;
     }
@@ -104,37 +95,22 @@ class Validator
         return $this;
     }
 
-    public function purify($string)
+    public function is_int()
     {
-        return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
-    }
-    public function checkSize(int $size)
-    {
-        if (!empty($this->errors[$this->name])) {
+        if (is_numeric($this->value)) {
             return $this;
         }
-        $maxsize = $size * 1024 * 1024;
-
-        if ($this->file['size'] > $maxsize) {
-            $this->errors[$this->name] = "File size is larger than $size MB.";
-
-        }
-        return $this;
-    }
-
-    public  function is_int(){
-        if(is_numeric($this->value)) return $this;
         $this->errors[$this->name] = 'Field value ' . $this->name . ' must be integer';
         return $this;
     }
 
-
-
     public function ext($extension)
     {
-        if ($this->file['error'] != 4 && pathinfo($this->file['name'], PATHINFO_EXTENSION) != $extension && strtoupper(
+        if (
+            $this->file['error'] != 4 && pathinfo($this->file['name'], PATHINFO_EXTENSION) != $extension && strtoupper(
                 pathinfo($this->file['name'], PATHINFO_EXTENSION)
-            ) != $extension) {
+            ) != $extension
+        ) {
             $this->errors[$this->name] = 'The file ' . $this->name . ' it is not a ' . $extension . '.';
         }
         return $this;
@@ -155,7 +131,6 @@ class Validator
         }
         return $this;
     }
-
 
     public function isSuccess()
     {

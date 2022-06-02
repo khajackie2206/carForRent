@@ -6,6 +6,11 @@ use Khanguyennfq\CarForRent\core\Response;
 
 class View
 {
+
+    /**
+     * @param $response
+     * @return void
+     */
     public static function handle($response): void
     {
         if ($response->getRedirectUrl() !== null) {
@@ -20,6 +25,10 @@ class View
         exit();
     }
 
+    /**
+     * @param Response $response
+     * @return void
+     */
     public static function viewJson(Response $response)
     {
         $data = $response->getData();
@@ -33,6 +42,10 @@ class View
         print_r($dataResponse);
     }
 
+    /**
+     * @param Response $response
+     * @return void
+     */
     public static function handleViewTemplate(Response $response): void
     {
         $template = $response->getTemplate();
@@ -41,6 +54,10 @@ class View
         require __DIR__ . "/../view/$template.php";
     }
 
+    /**
+     * @param Response $response
+     * @return void
+     */
     public static function handleRedirect(Response $response): void
     {
         static::redirect($response->getRedirectUrl());
