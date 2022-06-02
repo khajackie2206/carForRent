@@ -4,8 +4,8 @@ namespace Khanguyennfq\CarForRent\validation;
 
 use Khanguyennfq\CarForRent\core\Request;
 use Khanguyennfq\CarForRent\model\UserModel;
-
-class UserValidator
+use Khanguyennfq\CarForRent\request\RegisterRequest;
+class UserValidator extends Validator
 {
 
     /**
@@ -18,5 +18,18 @@ class UserValidator
             return false;
         }
         return true;
+    }
+
+    public function validateRegister(RegisterRequest $registerRequest): bool | array
+    {
+        $val = new Validator();
+        $val->name('username')->value($registerRequest->getUsername())->required()->max(50);
+        $val->name('name')->value($registerRequest->getFullname())->required()->max(50);
+        $val->name('password')->value($registerRequest->getPassword())->customPattern('[A-Za-z0-9-.;_!#@]{5,15}')->required();
+        $val->name('re_password')->value($registerRequest->getConfirmPassword())->equal($registerRequest->getPassword())->required();
+        if ($val->isSuccess()) {
+            return true;
+        }
+        return $val->getErrors();
     }
 }

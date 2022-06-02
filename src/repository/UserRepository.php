@@ -4,7 +4,7 @@ namespace Khanguyennfq\CarForRent\repository;
 
 use Khanguyennfq\CarForRent\database\DatabaseConnect;
 use Khanguyennfq\CarForRent\model\UserModel;
-
+use Exception;
 class UserRepository
 {
     private $conn;
@@ -32,5 +32,19 @@ class UserRepository
         $user->setPassword($row['password']) ;
         $user->setCustomerName($row['name']) ;
         return $user;
+    }
+    public function insertUser(UserModel $user): bool
+    {
+        $statement = $this->conn->prepare("INSERT INTO user(name ,username, password) VALUES(?, ?, ?)");
+        try {
+            $statement->execute([
+                $user->getCustomerName(),
+                $user->getUsername(),
+                password_hash($user->getPassword(), PASSWORD_BCRYPT)
+            ]);
+        } catch (Exception $exception) {
+            return false;
+        }
+        return true;
     }
 }

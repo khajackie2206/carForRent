@@ -44,6 +44,14 @@ class Validator
         return $this;
     }
 
+    public function equal($value)
+    {
+        if ($this->value != $value) {
+            $this->errors[$this->name] = 'Field value ' . $this->name . ' not match.';
+        }
+        return $this;
+    }
+
     public function pattern($name)
     {
         if ($name == 'array') {
@@ -112,14 +120,6 @@ class Validator
             ) != $extension
         ) {
             $this->errors[$this->name] = 'The file ' . $this->name . ' it is not a ' . $extension . '.';
-        }
-        return $this;
-    }
-
-    public function equal($value)
-    {
-        if ($this->value != $value) {
-            $this->errors[$this->name] = 'Field value ' . $this->name . ' not match.';
         }
         return $this;
     }

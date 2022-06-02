@@ -30,7 +30,8 @@ class RouteConfig
             Route::post('/login', LoginController::class, 'login'),
             Route::get('/addcar', CarController::class, 'showForm'),
             Route::post('/addcar', CarController::class, 'addCar'),
-            Route::get('/register', RegisterController::class, 'index')
+            Route::get('/register', RegisterController::class, 'index'),
+            Route::post('/register', RegisterController::class, 'addUser')
 
         ];
     }

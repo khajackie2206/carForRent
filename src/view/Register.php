@@ -18,26 +18,34 @@
     <!-- Custom styles for this template -->
     <link href="./assets/css/style.css" rel="stylesheet">
 </head>
-<body class="text-center body-car">
+<body class="body-car">
 <form class="form-signin form-register" method="POST">
+    <div style="text-align: center;">
     <img class="mb-4" src="https://bintangjasatirta.com/login/avatar.png" alt="" width="92"
          height="92">
-    <h1 class="h3 mb-3 font-weight-normal" style="padding-bottom: 50px;">Please sign up</h1>
+    </div>
+    <h1 class="h3 mb-3 font-weight-normal" style="padding-bottom: 50px; text-align: center;">Create an account</h1>
     <div class="form-group">
-        <input type="text" name="username"  class="form-control" placeholder="Username" autofocus >
+        <label for="exampleInputPassword1" class="name_title">Username: </label>
+        <input type="text" name="username"  class="form-control" placeholder="Enter username" autofocus >
         <p style="color:red; height: 15px;"><?=$data['errorMessage']['color'] ?? ' '?></p>
     </div>
     <div class="form-group">
-        <label for="inputUsername" class="sr-only" >Name</label>
-        <input type="text" name="name"  class="form-control" placeholder="Fullname" autofocus >
+        <label for="exampleInputPassword1" class="name_title">Fullname: </label>
+        <input type="text" name="name"  class="form-control" placeholder="Enter fullname" autofocus >
         <p style="color:red; height: 15px;"><?=$data['errorMessage']['color'] ?? ' '?></p>
     </div>
     <div class="form-group">
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password"  name="password"  class="form-control" placeholder="Password"  >
+        <label for="exampleInputPassword1" class="name_title">Password:</label>
+        <input type="password"  name="password"  class="form-control" placeholder="Enter password"  >
         <p style="color:red; height: 15px;"><?=$data['errorMessage']['color'] ?? ' '?></p>
     </div>
-    <div class="checkbox mb-3 home-return">
+    <div class="form-group">
+        <label for="exampleInputPassword1" class="name_title">Confirm Password:</label>
+        <input type="password"  name="re_password"  class="form-control" placeholder="Enter confirm password"  >
+        <p style="color:red; height: 15px;"><?=$data['errorMessage']['color'] ?? ' '?></p>
+    </div>
+    <div class="checkbox mb-3 home-return" style="text-align: center;">
         <a href="/" >Return to home page</a>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>

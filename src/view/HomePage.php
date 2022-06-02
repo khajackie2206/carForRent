@@ -116,13 +116,13 @@
                         <img class="card-img-top" src="<?php echo $car->getThumb(); ?>"
                              alt="Card image cap">
                         <div class="card-body">
-                            <h4 class="card-text"><?php echo $car->getBrandName() ?></h4>
-                            <p class="card-text card-car">Color: <?php echo $car->getColor()?></p>
+                            <h4 class="card-text"><strong><?php echo $car->getBrandName() ?></strong></h4>
+                            <p class="card-text card-car"><strong>Color: </strong> <?php echo $car->getColor()?></p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-primary">Rent Now</button>
                                 </div>
-                                <small class="text-muted"><a style="color: red; font-weight: bold;"> $ <?php echo number_format($car->getCost());?></a> <strong>/ day</strong></small>
+                                <small class="text-muted"><a style="color: red; font-weight: bold;"> $ <?php echo number_format($car->getCost());?> <strong>/ day</strong></a> </small>
                             </div>
                         </div>
                     </div>
