@@ -16,22 +16,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 <body class="text-center">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Home</a>
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(95 95 246)">
+    <a class="navbar-brand" href="#" style="color:white;"><strong>Home</strong></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Car<span class="sr-only">(current)</span></a>
-            </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    List
-                </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="#">Action</a>
                     <a class="dropdown-item" href="#">Another action</a>
@@ -40,17 +33,28 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link  href=" #">Contact</a>
+                <a href="<?php if (isset($_SESSION['user_username'])) {echo "/addcar";} else { echo "#";}?>" class="navbar-brand d-flex align-items-center" style="color: white;">
+                    <strong>Add car &nbsp; </strong>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                        <circle cx="12" cy="13" r="4"></circle>
+                    </svg>
+                </a>
             </li>
         </ul>
         <?php
-
         if (!isset($_SESSION['user_username'])) {
             echo "<a href='/login' <button type='button' class='btn btn-success signin'>Sign in</button></a>";
         } ?>
         <?php if (isset($_SESSION['user_username'])) {
             echo "<form method='post' action='/logout'><button type='submit' class='btn btn-danger signout'>Sign out</button></form> ";
-        } ?>
+        }
+        ?>
+        <a href="#" class="session" style="color: white; right: 150px;"> <strong><?php
+                if (isset($_SESSION['user_username'])) {
+                    echo "Hi " . $_SESSION['user_username'];
+                } ?></strong></a>
     </div>
 </nav>
 <header>
@@ -64,32 +68,6 @@
                     <h4 class="text-white"></h4>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="navbar navbar-dark bg-dark box-shadow">
-        <div class="container d-flex justify-content-between">
-
-            <a href="<?php if (isset($_SESSION['user_username'])) {
-                echo "/addcar";
-                     } else {
-                         echo "#";
-                     }?>" class="navbar-brand d-flex align-items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
-                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-                    <circle cx="12" cy="13" r="4"></circle>
-                </svg>
-                <strong>Add Car</strong>
-            </a>
-            <a href="#" class="session"> <strong><?php
-
-            if (isset($_SESSION['user_username'])) {
-                echo "Hi " . $_SESSION['user_username'];
-            } ?></strong></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
-                    aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
         </div>
     </div>
 </header>
@@ -136,10 +114,9 @@
                             <p class="card-text card-car">Color: <?php echo $car->getColor()?></p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                    <button type="button" class="btn btn-primary">Rent Now</button>
                                 </div>
-                                <small class="text-muted"><a style="color: red">  <?php echo number_format($car->getCost());?></a> USD</small>
+                                <small class="text-muted"><a style="color: red; font-weight: bold;">  <?php echo number_format($car->getCost());?></a> $ / day</small>
                             </div>
                         </div>
                     </div>

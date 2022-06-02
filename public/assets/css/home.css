@@ -64,15 +64,15 @@ footer p {
     font-size: 120%;
 }
 #carouselExampleIndicators{
-    max-height: 500px;
-    max-width: 1100px;
+    max-height: 550px;
+    max-width: 1106px;
     margin: auto;
     background-color: #f8f9fa !important;
     padding-top: 20px;
-    margin-bottom: 50px;
+    margin-bottom: 45px;
 }
 .picture_car{
-    max-height: 500px;
+    max-height: 550px;
     max-width: 1160px;
 }
 .card-car-cover {
