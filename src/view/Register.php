@@ -28,33 +28,27 @@
     <div class="form-group">
         <label for="exampleInputPassword1" class="name_title">Username: </label>
         <input type="text" name="username"  class="form-control" placeholder="Enter username" autofocus >
-        <p style="color:red; height: 15px;"><?=$data['errorMessage']['color'] ?? ' '?></p>
+        <p style="color:red; height: 15px;"><?=$data['error']['username'] ?? ' '?></p>
     </div>
     <div class="form-group">
         <label for="exampleInputPassword1" class="name_title">Fullname: </label>
         <input type="text" name="name"  class="form-control" placeholder="Enter fullname" autofocus >
-        <p style="color:red; height: 15px;"><?=$data['errorMessage']['color'] ?? ' '?></p>
+        <p style="color:red; height: 15px;"><?=$data['error']['name'] ?? ' '?></p>
     </div>
     <div class="form-group">
         <label for="exampleInputPassword1" class="name_title">Password:</label>
         <input type="password"  name="password"  class="form-control" placeholder="Enter password"  >
-        <p style="color:red; height: 15px;"><?=$data['errorMessage']['color'] ?? ' '?></p>
+        <p style="color:red; height: 15px;"><?=$data['error']['password'] ?? ' '?></p>
     </div>
     <div class="form-group">
         <label for="exampleInputPassword1" class="name_title">Confirm Password:</label>
         <input type="password"  name="re_password"  class="form-control" placeholder="Enter confirm password"  >
-        <p style="color:red; height: 15px;"><?=$data['errorMessage']['color'] ?? ' '?></p>
+        <p style="color:red; height: 15px;"><?=$data['error']['retype password'] ?? ' '?></p>
     </div>
     <div class="checkbox mb-3 home-return" style="text-align: center;">
         <a href="/" >Return to home page</a>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
-    <p class="mt-5" style="color: red;"><?php
-
-    if (isset($data)) {
-        echo $data['error'];
-    }
-    ?></p>
 </form>
 </body>
 </html>

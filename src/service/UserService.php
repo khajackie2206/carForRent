@@ -23,6 +23,6 @@ class UserService
             $this->userRepository->insertUser($user);
             return true;
         }
-        throw new RegisterExeption('Username already exists');
+       return false;
     }
 }

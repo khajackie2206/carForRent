@@ -27,25 +27,26 @@ class RegisterController
     public function index(): Response
     {
         if (isset($_SESSION['user_username'])) {
-            return $this->response->view('Register');
+            return $this->response->redirect('/');
         }
-        return $this->response->redirect('/');
+        return $this->response->view('Register');
     }
 
     public function addUser(): Response
     {
         try {
-
             $params = $this->request->getBody();
             $this->registerRequest->fromArray($params);
             $validate = $this->userValidator->validateRegister($this->registerRequest);
-            if ($validate) {
-                $this->userService->register($this->registerRequest);
+            if ($validate===true) {
+               if ($this->userService->register($this->registerRequest)){
+                    return $this->response->redirect('/login');
+               }
+               return $this->response->view('Register',['error'=>['username' => 'Username already exists']]);
             }
-            $error = $validate;
         } catch (Exception $e) {
-            $error['error'] = $e->getMessage();
+            return $this->response->view('Register', ['error_exception' => $e->getMessage()]);
         }
-        return $this->response->view('Register', ['error' => $error]);
+        return $this->response->view('Register',['error' => $validate]);
     }
 }

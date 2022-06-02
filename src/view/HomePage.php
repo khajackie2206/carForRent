@@ -49,6 +49,7 @@
                 </a>
             </li>
         </ul>
+        <a href='/register' <button type='button' class='btn btn-warning' style="margin-right: 10px; color: dimgrey;">Sign up</button></a>
         <?php
         if (!isset($_SESSION['user_username'])) {
             echo "<a href='/login' <button type='button' class='btn btn-success signin'>Sign in</button></a>";

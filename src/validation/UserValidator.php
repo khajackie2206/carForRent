@@ -25,8 +25,8 @@ class UserValidator extends Validator
         $val = new Validator();
         $val->name('username')->value($registerRequest->getUsername())->required()->max(50);
         $val->name('name')->value($registerRequest->getFullname())->required()->max(50);
-        $val->name('password')->value($registerRequest->getPassword())->customPattern('[A-Za-z0-9-.;_!#@]{5,15}')->required();
-        $val->name('re_password')->value($registerRequest->getConfirmPassword())->equal($registerRequest->getPassword())->required();
+        $val->name('password')->value($registerRequest->getPassword())->required();
+        $val->name('retype password')->value($registerRequest->getConfirmPassword())->equal($registerRequest->getPassword())->required();
         if ($val->isSuccess()) {
             return true;
         }

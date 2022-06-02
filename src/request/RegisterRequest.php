@@ -77,7 +77,7 @@ class RegisterRequest
     public function fromArray(array $params): static
     {
         $this->setUsername($params['username']);
-        $this->setUsername($params['name']);
+        $this->setFullname($params['name']);
         $this->setPassword($params['password']);
         $this->setConfirmPassword($params['re_password']);
         return $this;
