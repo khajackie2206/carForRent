@@ -58,7 +58,7 @@
             echo "<form method='post' action='/logout'><button type='submit' class='btn btn-danger signout'>Sign out</button></form> ";
         }
         ?>
-        <a href="#" class="session" style="color: white; right: 150px;"> <strong><?php
+        <a href="#" class="session" style="color: white; right: 210px;"> <strong><?php
         if (isset($_SESSION['user_username'])) {
             echo "Hi " . $_SESSION['user_username'];
         } ?></strong></a>
