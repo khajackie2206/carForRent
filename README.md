@@ -20,7 +20,11 @@ PHPUnit 9.0.0 by Sebastian Bergmann and contributors.
  ./vendor/bin/phpunit tests
  XDEBUG_MODE=coverage ./vendor/bin/phpunit tests --coverage-html coverage
 ```
+<<<<<<< HEAD
 ## PHPCBF
+=======
+## PHPCBF 
+>>>>>>> 70625a89c777b537f0e7fb74a1ee5e2e6375b036
 ```bash
 phpcbf --standard=PSR12 ./src
 ```
