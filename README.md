@@ -15,12 +15,12 @@ composer require --dev phpunit/phpunit ^9
 ./vendor/bin/phpunit --version
 PHPUnit 9.0.0 by Sebastian Bergmann and contributors.
  ```
-## Test
+## TEST
 ```bash
  ./vendor/bin/phpunit tests
  XDEBUG_MODE=coverage ./vendor/bin/phpunit tests --coverage-html coverage
 ```
-## PHPCBF 
+## PHPCBF
 ```bash
 phpcbf --standard=PSR12 ./src
 ```
