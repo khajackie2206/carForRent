@@ -1,5 +1,4 @@
 # carForRent
-<<<<<<< HEAD
 My website allow you rent a car with the most reasonable price in the world !!!
 =======
 A website for customer to rent a special car with reasonable cost.
