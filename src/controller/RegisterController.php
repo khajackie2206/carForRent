@@ -2,34 +2,51 @@
 
 namespace Khanguyennfq\CarForRent\controller;
 
-use Khanguyennfq\CarForRent\app\View;
-use Khanguyennfq\CarForRent\model\UserModel;
-use Khanguyennfq\CarForRent\repository\UserRepository;
-use Khanguyennfq\CarForRent\database\DatabaseConnect;
-use Khanguyennfq\CarForRent\core\Route;
-use PDO;
-
+use Khanguyennfq\CarForRent\core\Request;
+use Khanguyennfq\CarForRent\core\Response;
+use Khanguyennfq\CarForRent\request\RegisterRequest;
+use Khanguyennfq\CarForRent\service\UserService;
+use Khanguyennfq\CarForRent\validation\UserValidator;
+use Exception;
 class RegisterController
 {
-    private PDO $conn;
-    public function __construct()
+    private $response;
+    private $request;
+    private $registerRequest;
+    private $userValidator;
+    private $userService;
+    public function __construct(Request $request, Response $response, RegisterRequest $registerRequest, UserValidator $userValidator, UserService $userService)
     {
-        $this->conn = DatabaseConnect::getConnection();
+        $this->request = $request;
+        $this->response = $response;
+        $this->registerRequest = $registerRequest;
+        $this->userValidator = $userValidator;
+        $this->userService = $userService;
     }
 
-    public function index(): void
+    public function index(): Response
     {
-        view::render('Register');
+        if (isset($_SESSION['user_username'])) {
+            return $this->response->redirect('/');
+        }
+        return $this->response->view('Register');
     }
 
-    public function store()
+    public function addUser(): Response
     {
-        $user = new UserModel();
-        $user->setUsername($_POST['username']);
-        $user->setPassword(password_hash(($_POST['password']), PASSWORD_BCRYPT));
-        $user->setCustomerName($_POST['name']);
-        $userRepository = new UserRepository($this->conn);
-        $result = $userRepository->addUser($user);
-        Route::redirect("/login");
+        try {
+            $params = $this->request->getBody();
+            $this->registerRequest->fromArray($params);
+            $validate = $this->userValidator->validateRegister($this->registerRequest);
+            if ($validate===true) {
+               if ($this->userService->register($this->registerRequest)){
+                    return $this->response->redirect('/login');
+               }
+               return $this->response->view('Register',['error'=>['username' => 'Username already exists']]);
+            }
+        } catch (Exception $e) {
+            return $this->response->view('Register', ['error_exception' => $e->getMessage()]);
+        }
+        return $this->response->view('Register',['error' => $validate]);
     }
 }

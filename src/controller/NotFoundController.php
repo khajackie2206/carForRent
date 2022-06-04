@@ -2,15 +2,15 @@
 
 namespace Khanguyennfq\CarForRent\controller;
 
-use Khanguyennfq\CarForRent\app\View;
+use Khanguyennfq\CarForRent\core\Response;
 
-class NotFoundController
+class NotFoundController extends BaseController
 {
-    /**
-     * @return string
-     */
-    public function index(): string
+    public const INDEX_ACTION = 'index';
+
+
+    public function index(): Response
     {
-        return View::render('NotFoundPage');
+        return $this->response->view("NotFoundPage");
     }
 }

@@ -18,26 +18,26 @@
     <!-- Custom styles for this template -->
     <link href="./assets/css/style.css" rel="stylesheet">
 </head>
-<body class="text-center">
-<form class="form-signin" method="POST">
-    <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72"
-         height="72">
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+<body class="text-center body-car">
+<form class="form-signin form-login" method="POST">
+    <img class="mb-4" src="https://bintangjasatirta.com/login/avatar.png" alt="" width="92"
+         height="92">
+    <h1 class="h3 mb-3 font-weight-normal" style="padding-bottom: 50px;">Please sign in</h1>
     <label for="inputEmail" class="sr-only">Email address</label>
-    <input type="text" name="username" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+    <input type="text" name="username" id="inputEmail" class="form-control" placeholder="Email address" autofocus>
     <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password"  name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    <input type="password"  name="password" id="inputPassword" class="form-control" placeholder="Password" >
     <div class="checkbox mb-3 home-return">
        <a href="/" >Return to home page</a>
     </div>
+
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     <p class="mt-5" style="color: red;"><?php
 
     if (isset($data)) {
-        echo $data["error"];
+        echo $data['error'];
     }
     ?></p>
-    <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
 </form>
 </body>
 </html>

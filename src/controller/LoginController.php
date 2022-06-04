@@ -3,91 +3,77 @@
 namespace Khanguyennfq\CarForRent\controller;
 
 use Khanguyennfq\CarForRent\app\View;
-use Khanguyennfq\CarForRent\request\LoginRequest;
-use Khanguyennfq\CarForRent\repository\UserRepository;
-use Khanguyennfq\CarForRent\database\DatabaseConnect;
-use Khanguyennfq\CarForRent\core\Route;
+use Khanguyennfq\CarForRent\core\Request;
+use Khanguyennfq\CarForRent\core\Response;
+use Khanguyennfq\CarForRent\model\UserModel;
+use Khanguyennfq\CarForRent\service\LoginService;
 use Khanguyennfq\CarForRent\service\SessionService;
-use Khanguyennfq\CarForRent\service\Validator;
-use PDO;
+use Khanguyennfq\CarForRent\service\TokenService;
+use Khanguyennfq\CarForRent\transformer\UserTransformer;
+use Exception;
 
 class LoginController
 {
-    /**
-     * @var PDO
-     */
-    private PDO $conn;
 
-    /**
-     * @var UserRepository
-     */
-    private UserRepository $userRepository;
-
-
-    public function __construct()
+    private $loginService;
+    private $userModel;
+    private $request;
+    private $response;
+    public function __construct(Request $request, UserModel $userModel, LoginService $loginService, Response $response, TokenService $tokenService, UserTransformer $userTransformer)
     {
-        $this->conn = DatabaseConnect::getConnection();
-        $this->userRepository = new UserRepository($this->conn);
+        $this->request = $request;
+        $this->response = $response;
+        $this->userModel = $userModel;
+        $this->loginService = $loginService;
+        $this->tokenService = $tokenService;
+        $this->userTransformer = $userTransformer;
     }
 
     /**
      * @return void
      */
-    public function index(): void
+    public function index(): Response
     {
         if (SessionService::getSession("user_username")) {
-            Route::redirect("/");
-        } else {
-            View::render("Login");
+            return $this->response->redirect('/');
         }
+        return $this->response->view('Login');
     }
 
     /**
-     * @return void
+     * @return Response
      */
-    public function login()
+    public function login(): Response
     {
-        $validation = new Validator(
-            $_POST,
-            [
-                'username' => ['required'],
-                'password' => ['required']
-            ],
-            [
-                'required' => 'Required you type all the blank'
-            ]
-        );
-        if ($validation->validate() !== true) {
-            return json_encode($validation->validate());
+        try {
+            $errorMessage = "";
+            $userparams = $this->request->getBody();
+            $this->userModel->fromArray($userparams);
+            if ($this->request->isPost()) {
+                $userLogged = $this->loginService->login($this->userModel);
+                if ($userLogged != null) {
+                    return $this->response->redirect('/');
+                }
+                $errorMessage = 'Username or password is invalid';
+            }
+        } catch (Exception $e) {
+            $errorMessage = 'Something went wrong!!!';
         }
-        $loginRequest = new LoginRequest($_POST);
-        $user = $this->userRepository->findUserName($loginRequest->username);
-        if ($user == null) {
-            View::render('Login', [
-                'username' => $loginRequest->username,
+
+            return $this->response->view('Login', [
+                'username' => $this->userModel->getUsername() ?? "",
                 'password' => '',
-                'error' => 'User is not exist',
+                'error' => $errorMessage,
             ]);
-            return;
-        }
-        if (!password_verify($loginRequest->password, $user->password)) {
-            View::render('Login', [
-                'username' => $loginRequest->username,
-                'password' => '',
-                'error' => 'Wrong password',
-            ]);
-            return;
-        }
-        SessionService::setSession("user_username", $user->getUsername());
-        Route::redirect('/');
     }
 
     /**
-     * @return void
+     * @return bool
      */
-    public function logOut(): void
+    public function logOut(): bool
     {
         SessionService::unsetSession('user_username');
-        Route::redirect('/login');
+        View::redirect('/');
+        return true;
     }
 }

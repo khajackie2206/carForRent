@@ -2,52 +2,49 @@
 
 namespace Khanguyennfq\CarForRent\repository;
 
-use PDO;
+use Khanguyennfq\CarForRent\database\DatabaseConnect;
 use Khanguyennfq\CarForRent\model\UserModel;
-
+use Exception;
 class UserRepository
 {
-    private PDO $conn;
+    private $conn;
 
-    /**
-     * @param $conn
-     */
-    public function __construct(PDO $conn)
+    public function __construct()
     {
-        $this->conn = $conn;
+        $this->conn = DatabaseConnect::getConnection();
     }
 
     /**
-     * @param UserModel $user
-     * @return UserModel
-     */
-    public function addUser(UserModel $user): UserModel
-    {
-        $sql = $this->conn->prepare("INSERT INTO user (user_customer_name, user_username, user_password) values (?,?,?) ");
-        $sql->execute([
-            $user->getCustomerName(),
-            $user->getUsername(),
-            $user->getPassword()
-        ]);
-        return $user;
-    }
-
-    /**
-     * @param $username
+     * @param string $username
      * @return UserModel|null
      */
-    public function findUserName($username): ?UserModel
+    public function findUserName(string $username): ?UserModel
     {
-        $sql = $this->conn->prepare("SELECT * FROM user WHERE user_username = ? ");
+        $sql = $this->conn->prepare("SELECT * FROM user WHERE username = ? ");
         $sql->execute([$username]);
         $user = new UserModel();
-        if ($row = $sql->fetch()) {
-            $user->username = $row['user_username'];
-            $user->password = $row['user_password'];
-            $user->fullName = $row['user_customer_name'];
-            return $user;
-        } else {
+        $row = $sql->fetch();
+        if (!$row) {
             return null;
         }
+        $user->setID($row['ID']) ;
+        $user->setUsername($row['username']) ;
+        $user->setPassword($row['password']) ;
+        $user->setCustomerName($row['name']) ;
+        return $user;
+    }
+    public function insertUser(UserModel $user): bool
+    {
+        $statement = $this->conn->prepare("INSERT INTO user(name ,username, password) VALUES(?, ?, ?)");
+        try {
+            $statement->execute([
+                $user->getCustomerName(),
+                $user->getUsername(),
+                password_hash($user->getPassword(), PASSWORD_BCRYPT)
+            ]);
+        } catch (Exception $exception) {
+            return false;
+        }
+        return true;
     }
 }

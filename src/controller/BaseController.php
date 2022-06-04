@@ -2,14 +2,21 @@
 
 namespace Khanguyennfq\CarForRent\controller;
 
+use Khanguyennfq\CarForRent\core\Request;
+use Khanguyennfq\CarForRent\core\Response;
+
 abstract class BaseController
 {
+    protected Request $request;
+    protected Response $response;
+
     /**
-     * @param string $view
-     * @return false|string
+     * @param Request  $request
+     * @param Response $response
      */
-    public function render(string $view): false | string
+    public function __construct(Request $request, Response $response)
     {
-        return file_get_contents(__DIR__ . "/../View/$view.php");
+        $this->request = $request;
+        $this->response = $response;
     }
 }

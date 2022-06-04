@@ -49,3 +49,32 @@ footer p {
 .box-shadow {
     box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
+.card-car{
+    text-align: left;
+}
+.card-img-top {
+    max-height: 200px;
+    width: auto;
+}
+.btn-group{
+    justify-content: center;
+}
+.text-muted
+{
+    font-size: 120%;
+}
+#carouselExampleIndicators{
+    max-height: 550px;
+    max-width: 1106px;
+    margin: auto;
+    background-color: #f8f9fa !important;
+    padding-top: 20px;
+    margin-bottom: 45px;
+}
+.picture_car{
+    max-height: 550px;
+    max-width: 1160px;
+}
+.card-car-cover {
+    margin-top: -50px;
+}

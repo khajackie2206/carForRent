@@ -20,7 +20,6 @@ body {
 
 .form-signin {
     width: 100%;
-    max-width: 330px;
     padding: 15px;
     margin: 0 auto;
 }
@@ -46,9 +45,42 @@ body {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
-.notfound {
+.body-notfound {
     margin-top: 200px;
+    background-image: url("https://wallpapercave.com/wp/wp8639649.jpg");
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .home-return {
-    margin-top: 15px;
+    margin-top: 55px;
+}
+.form-addcar{
+    margin-top: 50px;
+    width: 700px;
+    padding: 50px;
+    background-color: white;
+    border-radius: 15px;
+}
+.body-car{
+    background-image: url("https://wallpaperaccess.com/full/5636721.jpg");
+    background-position: center;
+}
+.form-login{
+    margin-top: 50px;
+    width: 450px;
+    padding: 50px;
+    background-color: white;
+    border-radius: 15px;
+}
+.form-register{
+    margin-top: 50px;
+    width: 550px;
+    padding: 50px;
+    background-color: white;
+    border-radius: 15px;
+}
+#inputEmail{
+    margin-bottom: 20px;
 }
