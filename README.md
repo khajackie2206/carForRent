@@ -1,38 +1,42 @@
-# carForRent
-=======
-A website for customer to rent a special car with reasonable cost.
+# 🥇About the project
+**The car for rent project**  is a website for customer to rent a special car with reasonable cost.
 
+# 🎉 Getting started
+## Setup Environment
 
-## * PHP UNIT
+- Follow this article to install Nginx in Ubuntu
+  20.04: [Click here](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-20-04)
+- Create an account to use the S3 service in AWS.
 
-#### + Download:
+### PHPUNIT
+```bash
+composer require --dev phpunit/phpunit ^9
 
-➜ composer require --dev phpunit/phpunit ^9
-
-➜ ./vendor/bin/phpunit --version
+./vendor/bin/phpunit --version
 PHPUnit 9.0.0 by Sebastian Bergmann and contributors.
-
-#### + Test:
-
-➜ ./vendor/bin/phpunit tests
-➜ XDEBUG_MODE=coverage ./vendor/bin/phpunit tests --coverage-html coverage
-## * PHPCBS 
-➜  phpcbf --standard=PSR12 ./src
-
-## * PSALM
+ ```
+## TEST
+```bash
+ ./vendor/bin/phpunit tests
+ XDEBUG_MODE=coverage ./vendor/bin/phpunit tests --coverage-html coverage
+```
+## PHPCBF 
+```bash
+phpcbf --standard=PSR12 ./src
+```
+## PSALM
 
 ####  The latest version of Psalm requires PHP >= 7.1 and Composer.
-
-➜ composer require --dev vimeo/psalm
-
+```bash
+composer require --dev vimeo/psalm
+```
 #### Generate a config file:
-
-➜ ./vendor/bin/psalm --init
-
+```bash
+./vendor/bin/psalm --init
+````
 Psalm will scan your project and figure out an appropriate error level for your codebase.
-
 #### Then run Psalm:
-
-➜ ./vendor/bin/psalm
-➜ ./vendor/bin/psalm --show-info=true
->>>>>>> feature/api
+```bash
+ ./vendor/bin/psalm
+ ./vendor/bin/psalm --show-info=true
+```
