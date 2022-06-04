@@ -1,5 +1,15 @@
 # 🥇About the project
 **The car for rent project**  is a website for customer to rent a special car with reasonable cost.
+# 🎉 Getting started
+## Setup Environment
+
+- Follow this article to install Nginx in Ubuntu
+  20.04: [Click here](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-20-04)
+- Create an account to use the S3 service in AWS.
+
+### PHPUNIT
+```bash
+composer require --dev phpunit/phpunit ^9
 
 # 🎉 Getting started
 ## Setup Environment
@@ -20,11 +30,7 @@ PHPUnit 9.0.0 by Sebastian Bergmann and contributors.
  ./vendor/bin/phpunit tests
  XDEBUG_MODE=coverage ./vendor/bin/phpunit tests --coverage-html coverage
 ```
-<<<<<<< HEAD
 ## PHPCBF
-=======
-## PHPCBF 
->>>>>>> 70625a89c777b537f0e7fb74a1ee5e2e6375b036
 ```bash
 phpcbf --standard=PSR12 ./src
 ```
