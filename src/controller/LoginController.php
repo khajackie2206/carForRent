@@ -19,14 +19,12 @@ class LoginController
     private $userModel;
     private $request;
     private $response;
-    public function __construct(Request $request, UserModel $userModel, LoginService $loginService, Response $response, TokenService $tokenService, UserTransformer $userTransformer)
+    public function __construct(Request $request, UserModel $userModel, LoginService $loginService, Response $response)
     {
         $this->request = $request;
         $this->response = $response;
         $this->userModel = $userModel;
         $this->loginService = $loginService;
-        $this->tokenService = $tokenService;
-        $this->userTransformer = $userTransformer;
     }
 
     /**
@@ -59,10 +57,7 @@ class LoginController
         } catch (Exception $e) {
             $errorMessage = 'Something went wrong!!!';
         }
-
             return $this->response->view('Login', [
-                'username' => $this->userModel->getUsername() ?? "",
-                'password' => '',
                 'error' => $errorMessage,
             ]);
     }

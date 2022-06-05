@@ -32,24 +32,19 @@ class LoginControllerAPI
 
     public function login()
     {
-        $err = '';
-        if ($this->request->isPost()) {
             try {
                 $userParams = $this->request->getRequestJsonBody();
                 $this->userModel->fromArray($userParams);
                 $userLogged = $this->loginService->login($this->userModel);
             } catch (Exception $e) {
                 return $this->response->toJson(
-                    [
-                    'message' => $e],
+                    ['message' => $e],
                     Response::HTTP_BAD_REQUEST
                 );
             }
             if ($userLogged == null) {
-                $err = 'Username or Password is invalid';
                 return $this->response->toJson(
-                    [
-                    'message' => $err],
+                    ['message' => 'Username or Password is invalid'],
                     Response::HTTP_UNAUTHORIZED
                 );
             }
@@ -59,5 +54,4 @@ class LoginControllerAPI
                     'token' => $token
             ], Response::HTTP_OK);
         }
-    }
 }

@@ -15,6 +15,7 @@ class RegisterController
     private $registerRequest;
     private $userValidator;
     private $userService;
+
     public function __construct(Request $request, Response $response, RegisterRequest $registerRequest, UserValidator $userValidator, UserService $userService)
     {
         $this->request = $request;
@@ -45,7 +46,7 @@ class RegisterController
                return $this->response->view('Register',['error'=>['username' => 'Username already exists']]);
             }
         } catch (Exception $e) {
-            return $this->response->view('Register', ['error_exception' => $e->getMessage()]);
+            return $this->response->view('Register', ['error' => $e->getMessage()]);
         }
         return $this->response->view('Register',['error' => $validate]);
     }
