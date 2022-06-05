@@ -58,15 +58,4 @@ class RequestTest extends TestCase
         $this->assertEquals(true, $request->isGet());
     }
 
-    public function testGetBody()
-    {
-        $this->setBackupGlobals(true);
-        $request = new Request();
-        $_SERVER['REQUEST_METHOD'] = 'POST';
-        $_POST['username'] = 'kha@123';
-        $_POST['password'] = '123456';
-        $result = $request->getBody();
-        $this->assertEquals('kha@123', $result['username']);
-        $this->assertEquals('123456', $result['password']);
-    }
 }

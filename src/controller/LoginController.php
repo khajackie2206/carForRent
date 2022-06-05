@@ -58,7 +58,7 @@ class LoginController
             $errorMessage = 'Something went wrong!!!';
         }
             return $this->response->view('Login', [
-                'error' => $errorMessage,
+                'errors' => $errorMessage,
             ]);
     }
 

@@ -2,16 +2,14 @@
 
 namespace Khanguyennfq\CarForRent\repository;
 
-use Khanguyennfq\CarForRent\database\DatabaseConnect;
 use Khanguyennfq\CarForRent\model\UserModel;
 use Exception;
-class UserRepository
+class UserRepository extends BaseRepository
 {
-    private $conn;
 
     public function __construct()
     {
-        $this->conn = DatabaseConnect::getConnection();
+        parent::__construct();
     }
 
     /**
@@ -20,7 +18,7 @@ class UserRepository
      */
     public function findUserName(string $username): ?UserModel
     {
-        $sql = $this->conn->prepare("SELECT * FROM user WHERE username = ? ");
+        $sql = $this->getConn()->prepare("SELECT * FROM user WHERE username = ? ");
         $sql->execute([$username]);
         $user = new UserModel();
         $row = $sql->fetch();
@@ -33,9 +31,14 @@ class UserRepository
         $user->setCustomerName($row['name']) ;
         return $user;
     }
+
+    /**
+     * @param UserModel $user
+     * @return bool
+     */
     public function insertUser(UserModel $user): bool
     {
-        $statement = $this->conn->prepare("INSERT INTO user(name ,username, password) VALUES(?, ?, ?)");
+        $statement = $this->getConn()->prepare("INSERT INTO user(name ,username, password) VALUES(?, ?, ?)");
         try {
             $statement->execute([
                 $user->getCustomerName(),

@@ -43,11 +43,11 @@ class RegisterController
                if ($this->userService->register($this->registerRequest)){
                     return $this->response->redirect('/login');
                }
-               return $this->response->view('Register',['error'=>['username' => 'Username already exists']]);
+               return $this->response->view('Register',['errors'=>['username' => 'Username already exists']]);
             }
         } catch (Exception $e) {
-            return $this->response->view('Register', ['error' => $e->getMessage()]);
+            return $this->response->view('Register', ['errors' => $e->getMessage()]);
         }
-        return $this->response->view('Register',['error' => $validate]);
+        return $this->response->view('Register',['errors' => $validate]);
     }
 }

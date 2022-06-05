@@ -3,17 +3,20 @@
 namespace Khanguyennfq\CarForRent\tests\controller;
 
 use Khanguyennfq\CarForRent\controller\NotFoundController;
+use Khanguyennfq\CarForRent\core\Request;
 use PHPUnit\Framework\TestCase;
-use Khanguyennfq\CarForRent\app\View;
+use Khanguyennfq\CarForRent\core\Response;
 
 class NotFoundControllerTest extends TestCase
 {
     public function testIndex()
     {
-        $notFoundController = new NotFoundController();
+        $request = new Request();
+        $response = new Response();
+        $notFoundController = new NotFoundController($request, $response);
         $notFoundController = $notFoundController->index();
-        $view = new View();
-        $expected = $view::render('NotFoundPage');
+        $response = new Response();
+        $expected = $response->view('NotFoundPage');
         $this->assertEquals($expected, $notFoundController);
     }
 }

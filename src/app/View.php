@@ -11,15 +11,15 @@ class View
      * @param $response
      * @return void
      */
-    public static function handle($response): void
+    public static function handle($response): bool
     {
         if ($response->getRedirectUrl() !== null) {
             static::handleRedirect($response);
-            return;
+            return true;
         }
         if ($response->getTemplate() !== null) {
             static::handleViewTemplate($response);
-            return;
+            return true;
         }
         static::ViewJson($response);
         exit();
@@ -62,6 +62,7 @@ class View
     {
         static::redirect($response->getRedirectUrl());
     }
+
     public static function redirect($url): void
     {
         header("location: $url");

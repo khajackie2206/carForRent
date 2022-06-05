@@ -18,7 +18,6 @@ class CarController
     private $carService;
     private $uploadFileService;
     private $carValidator;
-    private $imageValidator;
     private $carTransfer;
 
     public function __construct(
@@ -27,7 +26,6 @@ class CarController
         CarService $carService,
         UploadFileService $uploadFileService,
         CarValidator $carValidator,
-        ImageValidator $imageValidator,
         CarTransfer $carTransfer
     ) {
         $this->response = $response;
@@ -35,7 +33,6 @@ class CarController
         $this->carService = $carService;
         $this->uploadFileService = $uploadFileService;
         $this->carValidator = $carValidator;
-        $this->imageValidator = $imageValidator;
         $this->carTransfer = $carTransfer;
     }
 

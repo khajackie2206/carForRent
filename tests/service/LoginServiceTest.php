@@ -9,188 +9,102 @@ use Dotenv\Exception\ValidationException;
 
 class LoginServiceTest extends TestCase
 {
+
+
     /**
-     * @dataProvider loginDataProvider
+     * @dataProvider loginSuccessProvider
      * @param $params
      * @param $expected
      * @return void
      */
-
-    public function testLogin($params, $expected)
+    public function testLoginSuccess($params, $expected)
     {
         $userRepositoryMock = $this->getMockBuilder(UserRepository::class)->disableOriginalConstructor()->getMock();
-        $userRepositoryMock->expects($this->once())->method('findUserName')->willReturn($params['user']);
-
+        $userRepositoryMock->expects($this->once())->method('findUserName')->willReturn($params['userReturn']);
         $loginService = new LoginService($userRepositoryMock);
-
-        $user = new UserModel();
-        $loginRequest = new LoginRequest($params);
-        $user->setUsername($loginRequest->username);
-        $user->setPassword($loginRequest->password);
-
-        $result = $loginService->login($user);
-
-        $this->assertEquals($expected['customer_name'], $result->getCustomerName());
-        $this->assertEquals($expected['username'], $result->getUsername());
+        $userModel = new UserModel();
+        $userModel->fromArray($params);
+        $userResult = $loginService->login($userModel);
+        $expectedUser = $expected['user'];
+        $this->assertEquals($expectedUser->getUsername(), $userResult->getUsername());
     }
 
-    /**
-     * @return array[]
-     */
-    public function loginDataProvider(): array
+    private function hashPassword(string $password): string
+    {
+        return password_hash($password, PASSWORD_BCRYPT);
+    }
+
+    private function getUser( string $username, string $password): UserModel
+    {
+        $user = new UserModel();
+        $user->setUsername($username);
+        $user->setPassword($password);
+        return $user;
+    }
+
+    public function loginSuccessProvider()
     {
         return [
             'happy-case-1' => [
                 'params' => [
                     'username' => 'kha@123',
                     'password' => '123',
-                    'user' => $this->getUser('kha@123', 'kha', 123)
+                    'userReturn' => $this->getUser( 'kha@123', $this->hashPassword('123')),
                 ],
                 'expected' => [
-                    'customer_name' => 'kha',
-                    'username' => 'kha@123',
+                    'user' => $this->getUser('kha@123', $this->hashPassword('123'))
                 ]
             ],
             'happy-case-2' => [
                 'params' => [
-                    'username' => 'khajackie@gmail.com',
-                    'password' => '123456',
-                    'user' => $this->getUser('khajackie@gmail.com', 'kha minh', 123456)
+                    'username' => 'kha@1234',
+                    'password' => '123',
+                    'userReturn' => $this->getUser('kha@1234', $this->hashPassword('123')),
                 ],
                 'expected' => [
-                    'customer_name' => 'kha minh',
-                    'username' => 'khajackie@gmail.com',
+                    'user' => $this->getUser('kha@1234', $this->hashPassword('123'))
                 ]
             ]
         ];
     }
 
     /**
-     * @dataProvider loginFailDataProvider
-     * @param $params
-     * @return void
-     */
-    public function testLoginFail($params)
-    {
-        $userRepositoryMock = $this->getMockBuilder(UserRepository::class)->disableOriginalConstructor()->getMock();
-        $userRepositoryMock->expects($this->once())->method('findUserName')->willReturn($params['user']);
-
-        $loginService = new LoginService($userRepositoryMock);
-
-        $user = new UserModel();
-        $loginRequest = new LoginRequest($params);
-        $user->setUsername($loginRequest->username);
-        $user->setPassword($loginRequest->password);
-
-        $result = $loginService->login($user);
-
-        $this->assertEmpty($result);
-    }
-    public function loginFailDataProvider(): array
-    {
-        return [
-            'happy-case-1' => [
-                'params' => [
-                    'username' => 'kha@123asdas',
-                    'password' => '123asdasd',
-                    'user' => null
-                ]
-            ],
-            'happy-case-2' => [
-                'params' => [
-                    'username' => 'khajackie@gmail.comm',
-                    'password' => '123456aa',
-                    'user' => null
-                ],
-            ]
-        ];
-    }
-    private function getUser(string $userName, string $customerName, string $password)
-    {
-        $user = new UserModel();
-        $user->setCustomerName($customerName);
-        $user->setUsername($userName);
-        $user->setPassword(password_hash($password, PASSWORD_BCRYPT));
-        return $user;
-    }
-
-
-    /**
-     * @dataProvider validateTrueDataProvider
+     * @dataProvider loginFailProvider
      * @param $params
      * @param $expected
      * @return void
      */
-    public function testValidateTrue($params, $expected)
+    public function testLoginFail($params, $expected)
     {
-        $loginRequest = new LoginRequest($params);
         $userRepositoryMock = $this->getMockBuilder(UserRepository::class)->disableOriginalConstructor()->getMock();
+        $userRepositoryMock->expects($this->once())->method('findUserName')->willReturn($expected['user']);
         $loginService = new LoginService($userRepositoryMock);
-        $result = $loginService->validateLogin($loginRequest);
-        $this->assertEquals($expected, $result);
+        $userModel = new UserModel();
+        $userModel->fromArray($params);
+        $userResult = $loginService->login($userModel);
+        $this->assertNull($userResult);
     }
 
-    /**
-     * @return array
-     */
-    public function validateTrueDataProvider(): array
-    {
-        return [
-            'happy-case-1' => [
-                'params' => [
-                    'username' => 'username1',
-                    'password' => 'password1'
-                ],
-                'expected' => true
-            ],
-            'happy-case-2' => [
-                'params' => [
-                    'username' => 'username2',
-                    'password' => 'password2'
-                ],
-                'expected' => true
-            ]
-        ];
-    }
-
-    /**
-     * @dataProvider validateFalseDataProvider
-     * @param $params
-     * @param $expected
-     * @return void
-     */
-    public function testValidateFalse($params, $expected)
-    {
-        $loginRequest = new LoginRequest($params);
-        $userRepositoryMock = $this->getMockBuilder(UserRepository::class)->disableOriginalConstructor()->getMock();
-        $loginService = new LoginService($userRepositoryMock);
-        $result = $loginService->validateLogin($loginRequest);
-        $this->assertEquals($expected, $result);
-    }
-
-    public function validateFalseDataProvider(): array
+    public function loginFailProvider()
     {
         return [
             'sad-case-1' => [
                 'params' => [
-                    'username' => '',
-                    'password' => 'password1'
+                    'username' => 'kha@123',
+                    'password' => '123'
                 ],
-                'expected' => false
+                'expected' => [
+                    'user' => $this->getUser('kha@123', $this->hashPassword('1234'))
+                ]
             ],
             'sad-case-2' => [
                 'params' => [
-                    'username' => 'username2',
-                    'password' => ''
+                    'username' => 'kha@1234',
+                    'password' => '123'
                 ],
-                'expected' => false
-            ],
-            'sad-case-3' => [
-                'params' => [
-                    'username' => '',
-                    'password' => ''
-                ],
-                'expected' => false
+                'expected' => [
+                    'user' => $this->getUser('kha@1234', $this->hashPassword('1234'))
+                ]
             ]
         ];
     }
