@@ -32,26 +32,26 @@ class LoginControllerAPI
 
     public function login()
     {
-            try {
-                $userParams = $this->request->getRequestJsonBody();
-                $this->userModel->fromArray($userParams);
-                $userLogged = $this->loginService->login($this->userModel);
-            } catch (Exception $e) {
-                return $this->response->toJson(
-                    ['message' => $e],
-                    Response::HTTP_BAD_REQUEST
-                );
-            }
-            if ($userLogged == null) {
-                return $this->response->toJson(
-                    ['message' => 'Username or Password is invalid'],
-                    Response::HTTP_UNAUTHORIZED
-                );
-            }
+        try {
+            $userParams = $this->request->getRequestJsonBody();
+            $this->userModel->fromArray($userParams);
+            $userLogged = $this->loginService->login($this->userModel);
+        } catch (Exception $e) {
+            return $this->response->toJson(
+                ['message' => $e],
+                Response::HTTP_BAD_REQUEST
+            );
+        }
+        if ($userLogged == null) {
+            return $this->response->toJson(
+                ['message' => 'Username or Password is invalid'],
+                Response::HTTP_UNAUTHORIZED
+            );
+        }
             $token = $this->tokenService->jwtEncodeData($userLogged->getID());
             return $this->response->toJson([
                      'data' => $this->userTransformer->toArray($userLogged),
                     'token' => $token
             ], Response::HTTP_OK);
-        }
+    }
 }

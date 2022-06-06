@@ -5,6 +5,7 @@ namespace Khanguyennfq\CarForRent\service;
 use Khanguyennfq\CarForRent\repository\UserRepository;
 use Khanguyennfq\CarForRent\model\UserModel;
 use Khanguyennfq\CarForRent\request\RegisterRequest;
+
 class UserService
 {
     private $userRepository;
@@ -25,6 +26,6 @@ class UserService
             $this->userRepository->insertUser($user);
             return true;
         }
-       return false;
+        return false;
     }
 }

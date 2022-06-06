@@ -4,6 +4,7 @@ namespace Khanguyennfq\CarForRent\repository;
 
 use Khanguyennfq\CarForRent\model\UserModel;
 use Exception;
+
 class UserRepository extends BaseRepository
 {
 

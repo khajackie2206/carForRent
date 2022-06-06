@@ -6,6 +6,7 @@ use Khanguyennfq\CarForRent\core\Request;
 use Khanguyennfq\CarForRent\model\UserModel;
 use Khanguyennfq\CarForRent\request\RegisterRequest;
 use Khanguyennfq\CarForRent\request\LoginRequest;
+
 class UserValidator extends Validator
 {
 
@@ -21,6 +22,10 @@ class UserValidator extends Validator
         return true;
     }
 
+    /**
+     * @param RegisterRequest $registerRequest
+     * @return bool|array
+     */
     public function validateRegister(RegisterRequest $registerRequest): bool | array
     {
         $val = new Validator();

@@ -1,6 +1,7 @@
 <?php
 
 namespace Khanguyennfq\CarForRent\repository;
+
 use Khanguyennfq\CarForRent\database\DatabaseConnect;
 use PDO;
 
