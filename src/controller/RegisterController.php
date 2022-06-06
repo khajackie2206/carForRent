@@ -8,18 +8,15 @@ use Khanguyennfq\CarForRent\request\RegisterRequest;
 use Khanguyennfq\CarForRent\service\UserService;
 use Khanguyennfq\CarForRent\validation\UserValidator;
 use Exception;
-class RegisterController
+class RegisterController extends BaseController
 {
-    private $response;
-    private $request;
     private $registerRequest;
     private $userValidator;
     private $userService;
 
     public function __construct(Request $request, Response $response, RegisterRequest $registerRequest, UserValidator $userValidator, UserService $userService)
     {
-        $this->request = $request;
-        $this->response = $response;
+        parent::__construct($request, $response);
         $this->registerRequest = $registerRequest;
         $this->userValidator = $userValidator;
         $this->userService = $userService;

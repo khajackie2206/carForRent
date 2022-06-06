@@ -6,24 +6,22 @@ use Khanguyennfq\CarForRent\app\View;
 use Khanguyennfq\CarForRent\core\Request;
 use Khanguyennfq\CarForRent\core\Response;
 use Khanguyennfq\CarForRent\model\UserModel;
+use Khanguyennfq\CarForRent\request\LoginRequest;
 use Khanguyennfq\CarForRent\service\LoginService;
 use Khanguyennfq\CarForRent\service\SessionService;
 use Khanguyennfq\CarForRent\service\TokenService;
 use Khanguyennfq\CarForRent\transformer\UserTransformer;
 use Exception;
 
-class LoginController
+class LoginController extends BaseController
 {
 
     private $loginService;
-    private $userModel;
-    private $request;
-    private $response;
-    public function __construct(Request $request, UserModel $userModel, LoginService $loginService, Response $response)
+    private $loginRequest;
+    public function __construct(Request $request, LoginRequest $loginRequest, LoginService $loginService, Response $response)
     {
-        $this->request = $request;
-        $this->response = $response;
-        $this->userModel = $userModel;
+        parent::__construct($request, $response);
+        $this->loginRequest = $loginRequest;
         $this->loginService = $loginService;
     }
 
@@ -46,10 +44,10 @@ class LoginController
         try {
             $errorMessage = "";
             $userparams = $this->request->getBody();
-            $this->userModel->fromArray($userparams);
+            $this->loginRequest->fromArray($userparams);
             if ($this->request->isPost()) {
-                $userLogged = $this->loginService->login($this->userModel);
-                if ($userLogged != null) {
+                $userLogged = $this->loginService->login($this->loginRequest);
+                if ($userLogged) {
                     return $this->response->redirect('/');
                 }
                 $errorMessage = 'Username or password is invalid';
@@ -62,13 +60,9 @@ class LoginController
             ]);
     }
 
-    /**
-     * @return bool
-     */
-    public function logOut(): bool
+    public function logOut()
     {
         SessionService::unsetSession('user_username');
-        View::redirect('/');
-        return true;
+        return $this->response->redirect('/');
     }
 }

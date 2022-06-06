@@ -38,31 +38,16 @@ class Validator
         return $this;
     }
 
-    public function file($file)
+    /*public function file($file)
     {
         $this->file = $file;
         return $this;
-    }
+    }*/
 
     public function equal($value)
     {
         if ($this->value != $value) {
             $this->errors[$this->name] = 'Field value ' . $this->name . ' not match.';
-        }
-        return $this;
-    }
-
-    public function pattern($name)
-    {
-        if ($name == 'array') {
-            if (!is_array($this->value)) {
-                $this->errors[$this->name] = 'Field format ' . $this->name . ' invalid.';
-            }
-        } else {
-            $regex = '/^(' . $this->patterns[$name] . ')$/u';
-            if ($this->value != '' && !preg_match($regex, $this->value)) {
-                $this->errors[$this->name] = 'Field format ' . $this->name . ' invalid.';
-            }
         }
         return $this;
     }
@@ -109,18 +94,6 @@ class Validator
             return $this;
         }
         $this->errors[$this->name] = 'Field value ' . $this->name . ' must be integer';
-        return $this;
-    }
-
-    public function ext($extension)
-    {
-        if (
-            $this->file['error'] != 4 && pathinfo($this->file['name'], PATHINFO_EXTENSION) != $extension && strtoupper(
-                pathinfo($this->file['name'], PATHINFO_EXTENSION)
-            ) != $extension
-        ) {
-            $this->errors[$this->name] = 'The file ' . $this->name . ' it is not a ' . $extension . '.';
-        }
         return $this;
     }
 

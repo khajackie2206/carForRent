@@ -20,15 +20,4 @@ abstract class BaseRepository
     {
         return $this->conn;
     }
-
-    /**
-     * @param PDO $conn
-     */
-    public function setConn(PDO $conn): self
-    {
-        $this->conn = $conn;
-        return $this;
-    }
-
-
 }

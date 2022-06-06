@@ -38,11 +38,7 @@ class CarTransfer
      */
     public function setPrice(int | string $price): void
     {
-        if (is_numeric($price)) {
-            $this->price = (int)$price;
-        } else {
-            $this->price = 0;
-        }
+        $this->price = is_numeric($price) ? (int)$price : 0;
     }
 
     /**

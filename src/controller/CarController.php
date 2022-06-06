@@ -11,10 +11,9 @@ use Khanguyennfq\CarForRent\validation\CarValidator;
 use Exception;
 use Khanguyennfq\CarForRent\validation\ImageValidator;
 
-class CarController
+class CarController extends BaseController
 {
-    private $response;
-    private $request;
+
     private $carService;
     private $uploadFileService;
     private $carValidator;
@@ -28,8 +27,7 @@ class CarController
         CarValidator $carValidator,
         CarTransfer $carTransfer
     ) {
-        $this->response = $response;
-        $this->request = $request;
+        parent::__construct($request, $response);
         $this->carService = $carService;
         $this->uploadFileService = $uploadFileService;
         $this->carValidator = $carValidator;
