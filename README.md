@@ -7,18 +7,7 @@
   20.04: [Click here](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-20-04)
 - Create an account to use the S3 service in AWS.
 
-### PHPUNIT
-```bash
-composer require --dev phpunit/phpunit ^9
-
-# 🎉 Getting started
-## Setup Environment
-
-- Follow this article to install Nginx in Ubuntu
-  20.04: [Click here](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-20-04)
-- Create an account to use the S3 service in AWS.
-
-### PHPUNIT
+## PHPUNIT
 ```bash
 composer require --dev phpunit/phpunit ^9
 
