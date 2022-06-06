@@ -10,6 +10,7 @@ class SessionServiceTest extends TestCase
      * @param $params
      * @return void
      */
+
     public function testSetSession($params)
     {
         $sessionService = new SessionService();

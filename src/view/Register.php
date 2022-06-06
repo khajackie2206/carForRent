@@ -28,22 +28,22 @@
     <div class="form-group">
         <label for="exampleInputPassword1" class="name_title">Username: </label>
         <input type="text" name="username"  class="form-control" placeholder="Enter username" autofocus >
-        <p style="color:red; height: 15px;"><?=$data['error']['username'] ?? ' '?></p>
+        <p style="color:red; height: 15px;"><?=$data['errors']['username'] ?? ' '?></p>
     </div>
     <div class="form-group">
         <label for="exampleInputPassword1" class="name_title">Fullname: </label>
         <input type="text" name="name"  class="form-control" placeholder="Enter fullname" autofocus >
-        <p style="color:red; height: 15px;"><?=$data['error']['name'] ?? ' '?></p>
+        <p style="color:red; height: 15px;"><?=$data['errors']['name'] ?? ' '?></p>
     </div>
     <div class="form-group">
         <label for="exampleInputPassword1" class="name_title">Password:</label>
         <input type="password"  name="password"  class="form-control" placeholder="Enter password"  >
-        <p style="color:red; height: 15px;"><?=$data['error']['password'] ?? ' '?></p>
+        <p style="color:red; height: 15px;"><?=$data['errors']['password'] ?? ' '?></p>
     </div>
     <div class="form-group">
         <label for="exampleInputPassword1" class="name_title">Confirm Password:</label>
         <input type="password"  name="re_password"  class="form-control" placeholder="Enter confirm password"  >
-        <p style="color:red; height: 15px;"><?=$data['error']['retype password'] ?? ' '?></p>
+        <p style="color:red; height: 15px;"><?=$data['errors']['retype password'] ?? ' '?></p>
     </div>
     <div class="checkbox mb-3 home-return" style="text-align: center;">
         <a href="/" >Return to home page</a>

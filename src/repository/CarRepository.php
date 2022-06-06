@@ -3,17 +3,14 @@
 namespace Khanguyennfq\CarForRent\repository;
 
 use Khanguyennfq\CarForRent\model\CarModel;
-use Khanguyennfq\CarForRent\database\DatabaseConnect;
 use PDO;
-use Exception;
 
-class CarRepository
+class CarRepository extends BaseRepository
 {
-    private $conn;
 
     public function __construct()
     {
-        $this->conn = DatabaseConnect::getConnection();
+         parent::__construct();
     }
 
     /**
@@ -22,7 +19,7 @@ class CarRepository
      */
     public function addCar($newcar): bool
     {
-            $sql = $this->conn->prepare("INSERT INTO car (ID, brand, price, color, thumb) VALUES (? ,? ,? ,? ,?)");
+            $sql = $this->getConn()->prepare("INSERT INTO car (ID, brand, price, color, thumb) VALUES (? ,? ,? ,? ,?)");
             return $sql->execute([$newcar[0],$newcar[1],$newcar[2],$newcar[3],$newcar[4]]);
     }
 
@@ -31,13 +28,13 @@ class CarRepository
      */
     public function listCar()
     {
-        $sql = $this->conn->prepare("SELECT * FROM `car`");
+        $sql = $this->getConn()->prepare("SELECT * FROM `car` LIMIT 8");
         $sql->execute();
         $row = $sql->fetchAll(PDO::FETCH_ASSOC);
         if (!$row) {
             return null;
         }
-        $carArray = [];
+        $carsArray = [];
         foreach ($row as $key => $car) {
             $carData = new CarModel();
             $carData->setID($car['ID']);
@@ -45,8 +42,8 @@ class CarRepository
             $carData->setCost($car['price']);
             $carData->setColor($car['color']);
             $carData->setThumb($car['thumb']);
-            array_push($carArray, $carData);
+            array_push($carsArray, $carData);
         }
-        return $carArray;
+        return $carsArray;
     }
 }

@@ -35,7 +35,7 @@
     <p class="mt-5" style="color: red;"><?php
 
     if (isset($data)) {
-        echo $data['error'];
+        echo $data['errors'];
     }
     ?></p>
 </form>

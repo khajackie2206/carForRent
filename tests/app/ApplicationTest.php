@@ -34,7 +34,7 @@ class ApplicationTest extends TestCase
             'case2' => [
                 'params' => [
                     'method' => 'POST',
-                    'Uri' => "/abcxyz"
+                    'Uri' => "/login"
                 ]
             ],
             'case3' => [

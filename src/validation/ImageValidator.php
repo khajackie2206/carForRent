@@ -16,7 +16,6 @@ class ImageValidator
         $allowed = array(
             "jpg" => "image/jpg",
             "jpeg" => "image/jpeg",
-            "gif" => "image/gif",
             "png" => "image/png"
         );
         $ext = pathinfo($image["name"], PATHINFO_EXTENSION);

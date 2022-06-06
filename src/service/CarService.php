@@ -47,6 +47,7 @@ class CarService
         $car->setThumb($carTransfer->getThumb());
         return $car;
     }
+
     public function listCar()
     {
         return $this->carRepository->listCar();

@@ -8,17 +8,15 @@ use Khanguyennfq\CarForRent\request\RegisterRequest;
 use Khanguyennfq\CarForRent\service\UserService;
 use Khanguyennfq\CarForRent\validation\UserValidator;
 use Exception;
-class RegisterController
+class RegisterController extends BaseController
 {
-    private $response;
-    private $request;
     private $registerRequest;
     private $userValidator;
     private $userService;
+
     public function __construct(Request $request, Response $response, RegisterRequest $registerRequest, UserValidator $userValidator, UserService $userService)
     {
-        $this->request = $request;
-        $this->response = $response;
+        parent::__construct($request, $response);
         $this->registerRequest = $registerRequest;
         $this->userValidator = $userValidator;
         $this->userService = $userService;
@@ -42,11 +40,11 @@ class RegisterController
                if ($this->userService->register($this->registerRequest)){
                     return $this->response->redirect('/login');
                }
-               return $this->response->view('Register',['error'=>['username' => 'Username already exists']]);
+               return $this->response->view('Register',['errors'=>['username' => 'Username already exists']]);
             }
         } catch (Exception $e) {
-            return $this->response->view('Register', ['error_exception' => $e->getMessage()]);
+            return $this->response->view('Register', ['errors' => $e->getMessage()]);
         }
-        return $this->response->view('Register',['error' => $validate]);
+        return $this->response->view('Register',['errors' => $validate]);
     }
 }
