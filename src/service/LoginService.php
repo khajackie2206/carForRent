@@ -22,7 +22,7 @@ class LoginService
         $existUser = $this->userRepository->findUserName($loginRequest->getUsername());
         if (!empty($existUser) && password_verify($loginRequest->getPassword(), $existUser->getPassword()) && $userValidator->validateLogin($loginRequest)) {
             SessionService::setSession("user_username", $existUser->getUsername());
-            return true;
+            return $existUser;
         }
         return null;
     }

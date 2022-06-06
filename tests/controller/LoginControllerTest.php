@@ -16,6 +16,17 @@ use PHPUnit\Framework\TestCase;
 class LoginControllerTest extends TestCase
 {
 
+    protected UserModel $user;
+    public function __construct(?string $name = null, array $data = [], $dataName = '')
+    {
+        parent::__construct($name, $data, $dataName);
+        $this->user = new UserModel();
+        $this->user->setID(1);
+        $this->user->setUsername('kha@123');
+        $this->user->setCustomerName('kha');
+        $this->user->setPassword('123');
+
+    }
 
     public function testLoginSuccess()
     {
@@ -28,7 +39,7 @@ class LoginControllerTest extends TestCase
         $response = new Response();
         $loginRequestMock = $this->getMockBuilder(LoginRequest::class)->disableOriginalConstructor()->getMock();
         $loginServiceMock = $this->getMockBuilder(LoginService::class)->disableOriginalConstructor()->getMock();
-        $loginServiceMock->expects($this->once())->method('login')->willReturn(true);
+        $loginServiceMock->expects($this->once())->method('login')->willReturn($this->user);
         $loginController = new LoginController($requestMock, $loginRequestMock , $loginServiceMock, $response);
         $result = $loginController->login();
         $view  = new Response();

@@ -17,7 +17,7 @@ class LoginServiceTest extends TestCase
      * @param $expected
      * @return void
      */
-    public function testLoginSuccess($params)
+    public function testLoginSuccess(array $params, array $expected)
     {
         $userRepositoryMock = $this->getMockBuilder(UserRepository::class)->disableOriginalConstructor()->getMock();
         $userRepositoryMock->expects($this->once())->method('findUserName')->willReturn($params['userReturn']);
@@ -25,7 +25,9 @@ class LoginServiceTest extends TestCase
         $loginRequest = new LoginRequest();
         $loginRequest->fromArray($params);
         $userResult = $loginService->login($loginRequest);
-        $this->assertTrue($userResult);
+        $expectedUser = $expected['user'];
+        $this->assertEquals($expectedUser->getUsername(), $userResult->getUsername());
+        $this->assertEquals($expectedUser->getID(), $userResult->getID());
     }
 
     private function hashPassword(string $password): string
@@ -52,6 +54,9 @@ class LoginServiceTest extends TestCase
                     'password' => '123',
                     'userReturn' => $this->getUser( 5,'kha','kha@123', $this->hashPassword('123')),
                 ],
+                'expected' => [
+                    'user' => $this->getUser(5, 'kha','kha@123', $this->hashPassword('123'))
+                ]
             ],
             'happy-case-2' => [
                 'params' => [
@@ -59,6 +64,9 @@ class LoginServiceTest extends TestCase
                     'password' => '123',
                     'userReturn' => $this->getUser(27,'kha','kha@1234', $this->hashPassword('123')),
                 ],
+                'expected' => [
+                    'user' => $this->getUser(27, 'kha','kha@1234', $this->hashPassword('123'))
+                ]
             ]
         ];
     }

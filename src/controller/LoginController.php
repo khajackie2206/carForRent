@@ -47,7 +47,7 @@ class LoginController extends BaseController
             $this->loginRequest->fromArray($userparams);
             if ($this->request->isPost()) {
                 $userLogged = $this->loginService->login($this->loginRequest);
-                if ($userLogged) {
+                if ($userLogged != null) {
                     return $this->response->redirect('/');
                 }
                 $errorMessage = 'Username or password is invalid';
