@@ -38,12 +38,6 @@ class Validator
         return $this;
     }
 
-    /*public function file($file)
-    {
-        $this->file = $file;
-        return $this;
-    }*/
-
     public function equal($value)
     {
         if ($this->value != $value) {

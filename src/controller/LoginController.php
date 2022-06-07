@@ -18,6 +18,7 @@ class LoginController extends BaseController
 
     private $loginService;
     private $loginRequest;
+
     public function __construct(Request $request, LoginRequest $loginRequest, LoginService $loginService, Response $response)
     {
         parent::__construct($request, $response);

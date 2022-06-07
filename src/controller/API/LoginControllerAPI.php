@@ -27,8 +27,7 @@ class LoginControllerAPI extends AbstractAPIController
         TokenService $tokenService,
         UserTransformer $userTransformer,
         UserValidator $userValidator
-         )
-    {
+    ) {
         parent::__construct($request, $response);
         $this->loginRequest = $loginRequest;
         $this->loginService = $loginService;
@@ -37,27 +36,31 @@ class LoginControllerAPI extends AbstractAPIController
         $this->userValidator = $userValidator;
     }
 
+    /**
+     * @return Response
+     */
     public function login(): Response
     {
-            $this->loginRequest->fromArray($this->request->getRequestJsonBody());
-            $loginValidator = $this->userValidator->validateLogin($this->loginRequest);
-            if(!$loginValidator) {
-                return $this->response->toJson(
-                    ['message' => 'Username or password cannot be empty'],
-                    Response::HTTP_BAD_REQUEST
-                );
-            }
-           $userLogged = $this->loginService->login($this->loginRequest);
-           if ($userLogged == null) {
+            $params = $this->request->getRequestJsonBody();
+            $loginRequest = $this->loginRequest->fromArray($params);
+            $loginValidator = $this->userValidator->validateLogin($loginRequest);
+        if (!$loginValidator) {
+            return $this->response->toJson(
+                ['message' => 'Username or password cannot be empty'],
+                Response::HTTP_BAD_REQUEST
+            );
+        }
+            $userLogged = $this->loginService->login($this->loginRequest);
+        if ($userLogged == null) {
             return $this->response->toJson(
                 ['message' => 'Username or Password is invalid'],
                 Response::HTTP_UNAUTHORIZED
             );
-         }
+        }
             $token = $this->tokenService->jwtEncodeData($userLogged->getID());
             return $this->response->toJson([
-                     'data' => $this->userTransformer->toArray($userLogged),
-                    'token' => $token
+                'data' => $this->userTransformer->toArray($userLogged),
+                'token' => $token
             ], Response::HTTP_OK);
     }
 }

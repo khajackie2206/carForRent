@@ -32,5 +32,4 @@ class CarControllerTest extends TestCase
         $expected = $response->view('AddCar');
         $this->assertEquals($expected, $carController);
     }
-
 }
