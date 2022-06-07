@@ -28,7 +28,7 @@ class CarRepository extends BaseRepository
      */
     public function listCar()
     {
-        $sql = $this->getConn()->prepare("SELECT * FROM `car` LIMIT 8");
+        $sql = $this->getConn()->prepare("SELECT * FROM `car` LIMIT 100");
         $sql->execute();
         $row = $sql->fetchAll(PDO::FETCH_ASSOC);
         if (!$row) {

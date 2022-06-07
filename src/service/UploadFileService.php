@@ -9,6 +9,52 @@ use Dotenv\Dotenv;
 class UploadFileService
 {
     private static $loadEnv;
+    private $bucketName;
+    private $bucketRegion;
+    private $accessKey;
+    private $secretKey;
+
+    public function __construct()
+    {
+        self::$loadEnv = Dotenv::createImmutable(__DIR__ . '/../../');
+        self::$loadEnv->load();
+        $this->bucketName = $_ENV['S3_BUCKET_NAME'];
+        $this->bucketRegion = $_ENV['S3_BUCKET_REGION'];
+        $this->accessKey = $_ENV['S3_ACCESS_KEY_ID'];
+        $this->secretKey = $_ENV['S3_SECRET_ACCESS_KEY'];
+    }
+
+    /**
+     * @param $file
+     * @return \Aws\Result
+     */
+    public function setS3Client($file)
+    {
+        $key = basename($this->getFilePath($file['name']));
+        $result = new S3Client([
+            'version' => 'latest',
+            'region' => $this->bucketRegion,
+            'credentials' => ['key' => $this->accessKey, 'secret' => $this->secretKey]
+        ]);
+        $result = $result->putObject([
+            'Bucket' => $this->bucketName,
+            'Key' => $key,
+            'SourceFile' => $this->getFilePath($file['name']),
+        ]);
+        unlink($this->getFilePath($file['name']));
+        return $result;
+    }
+
+    /**
+     * @param $fileName
+     * @return string
+     */
+    public function getFilePath($fileName)
+    {
+        $path = __DIR__ . "/../../public/img/";
+        $filename = md5(date('Y-m-d H:i:s:u')) . $fileName;
+        return $path . $filename;
+    }
 
     /**
      * @param $file
@@ -16,34 +62,13 @@ class UploadFileService
      */
     public function handleUpload($file)
     {
-        self::$loadEnv = Dotenv::createImmutable(__DIR__ . '/../../');
-        self::$loadEnv->load();
-        $bucketName = $_ENV['S3_BUCKET_NAME'];
-        $bucketRegion = $_ENV['S3_BUCKET_REGION'];
-        $accessKey = $_ENV['S3_ACCESS_KEY_ID'];
-        $secretKey = $_ENV['S3_SECRET_ACCESS_KEY'];
-        $s3Client = new S3Client([
-            'version' => 'latest',
-            'region' => $bucketRegion,
-            'credentials' => ['key' => $accessKey, 'secret' => $secretKey]
-        ]);
-        $path = __DIR__ . "/../../public/img/";
-        $filename = md5(date('Y-m-d H:i:s:u')) . $file["name"];
-        if (move_uploaded_file($file["tmp_name"], $path . $filename)) {
-            $file_Path = $path . $filename;
-            $key = basename($file_Path);
-            try {
-                $result = $s3Client->putObject([
-                    'Bucket' => $bucketName,
-                    'Key' => $key,
-                    'SourceFile' => $file_Path,
-                ]);
-                unlink($path . $filename);
-                return $result->get('ObjectURL');
-            } catch (S3Exception $e) {
-                return null;
-            }
-        } else {
+        if (!move_uploaded_file($file["tmp_name"], $this->getFilePath($file['name']))) {
+            return null;
+        }
+        try {
+            $result = $this->setS3Client($file);
+            return $result->get('ObjectURL');
+        } catch (S3Exception $e) {
             return null;
         }
     }
