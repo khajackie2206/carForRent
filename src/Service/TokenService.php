@@ -32,6 +32,10 @@ class TokenService
         return JWT::encode($payload, $this->jwtSecret, 'HS256');
     }
 
+    /**
+     * @param $token
+     * @return array|bool
+     */
     public function validateToken($token): array | bool
     {
         try {
