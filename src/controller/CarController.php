@@ -9,7 +9,6 @@ use Khanguyennfq\CarForRent\service\UploadFileService;
 use Khanguyennfq\CarForRent\transfer\CarTransfer;
 use Khanguyennfq\CarForRent\validation\CarValidator;
 use Exception;
-use Khanguyennfq\CarForRent\validation\ImageValidator;
 
 class CarController extends BaseController
 {
@@ -20,13 +19,14 @@ class CarController extends BaseController
     private $carTransfer;
 
     public function __construct(
-        Response $response,
-        Request $request,
-        CarService $carService,
+        Response          $response,
+        Request           $request,
+        CarService        $carService,
         UploadFileService $uploadFileService,
-        CarValidator $carValidator,
-        CarTransfer $carTransfer
-    ) {
+        CarValidator      $carValidator,
+        CarTransfer       $carTransfer
+    )
+    {
         parent::__construct($request, $response);
         $this->carService = $carService;
         $this->uploadFileService = $uploadFileService;
@@ -39,8 +39,8 @@ class CarController extends BaseController
      */
     public function index(): Response
     {
-            $carList = $this->carService->listCar();
-           return $this->response->view('HomePage', ["carList" => $carList]);
+        $carList = $this->carService->listCar();
+        return $this->response->view('HomePage', ["carList" => $carList]);
     }
 
     /**
