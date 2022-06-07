@@ -3,6 +3,7 @@
 namespace validation;
 
 use Khanguyennfq\CarForRent\model\UserModel;
+use Khanguyennfq\CarForRent\request\LoginRequest;
 use Khanguyennfq\CarForRent\validation\UserValidator;
 use Khanguyennfq\CarForRent\request\RegisterRequest;
 use PHPUnit\Framework\TestCase;
@@ -73,10 +74,10 @@ class UserValidatorTest extends TestCase
      */
     public function testValidateLoginFail($params)
     {
-        $userModel = new UserModel();
-        $userModel->fromArray($params);
+        $loginRequest = new LoginRequest();
+        $loginRequest->fromArray($params);
         $userValidator = new UserValidator();
-        $expected = $userValidator->validateLogin($userModel);
+        $expected = $userValidator->validateLogin($loginRequest);
         $this->assertFalse($expected);
     }
 

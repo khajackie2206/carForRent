@@ -4,19 +4,17 @@ namespace Khanguyennfq\CarForRent\controller\API;
 
 use Khanguyennfq\CarForRent\core\Response;
 use Khanguyennfq\CarForRent\core\Request;
-use Khanguyennfq\CarForRent\model\CarModel;
 use Khanguyennfq\CarForRent\service\CarService;
 use Khanguyennfq\CarForRent\transformer\CarTransformer;
 
-class CarControllerAPI
+class CarControllerAPI extends AbstractAPIController
 {
-    private $response;
     private $carTransformer;
     private $carService;
 
-    public function __construct(Response $response, CarTransformer $carTransformer, CarService $carService)
+    public function __construct(Request $request, Response $response, CarTransformer $carTransformer, CarService $carService)
     {
-         $this->response = $response;
+         parent::__construct($request, $response);
          $this->carTransformer = $carTransformer;
          $this->carService = $carService;
     }

@@ -32,4 +32,33 @@ class CarControllerTest extends TestCase
         $expected = $response->view('AddCar');
         $this->assertEquals($expected, $carController);
     }
+
+    /*public function testAddCar()
+    {
+        $response = new Response();
+        $requestMock = $this->getMockBuilder(Request::class)->disableOriginalConstructor()->getMock();
+        $requestMock->expects($this->once())->method('getBody')->willReturn([
+            'brand' => 'lambo',
+            'price' => 500,
+            'color' => 'black'
+        ]);
+        $requestMock->expects($this->once())->method('getFiles')->willReturn([
+            'name' =>  'image_2022-06-02_13-25-25.png',
+            'full_path' => 'image_2022-06-02_13-25-25.png',
+            'type' => 'image/png',
+             'tmp_name' => '/tmp/phpGgsmRt',
+             'error' => 0,
+             'size' => 94308
+        ]);
+        $carTransferMock = $this->getMockBuilder(CarTransfer::class)->disableOriginalConstructor()->getMock();
+        $carService = $this->getMockBuilder(CarService::class)->disableOriginalConstructor()->getMock();
+        $uploadFileService = $this->getMockBuilder(UploadFileService::class)->disableOriginalConstructor()->getMock();
+        $carValidatorMock = $this->getMockBuilder(CarValidator::class)->disableOriginalConstructor()->getMock();
+        $carValidatorMock->expects($this->once())->method('validateCar')->willReturn([]);
+        $carController = new CarController($response, $requestMock, $carService, $uploadFileService, $carValidatorMock, $carTransferMock);
+        $carController = $carController->addCar();
+        $responseExpected = new Response();
+        $responseExpected->setTemplate('AddCar');
+        $this->assertEquals($responseExpected->getTemplate(),$carController->getTemplate());
+    }*/
 }
