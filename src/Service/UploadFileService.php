@@ -30,7 +30,7 @@ class UploadFileService
      */
     public function setS3Client($file)
     {
-        $key = basename($this->getFilePath($file['name']));
+        $key = basename($file);
         $result = new S3Client([
             'version' => 'latest',
             'region' => $this->bucketRegion,
@@ -39,9 +39,9 @@ class UploadFileService
         $result = $result->putObject([
             'Bucket' => $this->bucketName,
             'Key' => $key,
-            'SourceFile' => $this->getFilePath($file['name']),
+            'SourceFile' => $file,
         ]);
-        unlink($this->getFilePath($file['name']));
+        unlink($file);
         return $result;
     }
 
@@ -62,11 +62,12 @@ class UploadFileService
      */
     public function handleUpload($file)
     {
-        if (!move_uploaded_file($file["tmp_name"], $this->getFilePath($file['name']))) {
+        $filePath = $this->getFilePath($file['name']);
+        if (!move_uploaded_file($file["tmp_name"], $filePath)) {
             return null;
         }
         try {
-            $result = $this->setS3Client($file);
+            $result = $this->setS3Client($filePath);
             return $result->get('ObjectURL');
         } catch (S3Exception $e) {
             return null;
